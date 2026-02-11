@@ -34,12 +34,13 @@ const Layout = () => {
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setSearchResults([]);
+
     } else {
       const lowerTerm = searchTerm.toLowerCase();
       const filtered = clients.filter(c =>
         c.name.toLowerCase().includes(lowerTerm) ||
-        c.document.includes(lowerTerm) ||
-        c.phone.includes(lowerTerm)
+        (c.document && c.document.includes(lowerTerm)) ||
+        (c.phone && c.phone.includes(lowerTerm))
       );
       setSearchResults(filtered);
     }

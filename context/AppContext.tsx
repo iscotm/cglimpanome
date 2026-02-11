@@ -327,6 +327,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       status: 'in_progress'
     }]).select().single();
 
+    if (contractError) {
+      console.error("Error adding contract", contractError);
+      setContracts(prev => prev.filter(c => c.id !== tempId));
+      return;
+    }
+
     if (insertedContract) {
       // Map back
       const mappedContract: Contract = {
@@ -351,9 +357,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setEvents(prev => [{ ...insertedEvent, contractId: insertedEvent.contract_id }, ...prev]);
       }
 
-    } else if (contractError) {
-      console.error("Error adding contract", contractError);
-      setContracts(prev => prev.filter(c => c.id !== tempId));
+      if (insertedEvent) {
+        setEvents(prev => [{ ...insertedEvent, contractId: insertedEvent.contract_id }, ...prev]);
+      }
+
     }
   };
 
@@ -608,7 +615,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const newExpenseCtx = { ...data, id: tempId };
     setExpenses(prev => [newExpenseCtx, ...prev]);
 
-    const { data: inserted, error } = await supabase.from('expenses').insert([{
+    const { data: inserted, error: expensesError } = await supabase.from('expenses').insert([{
       user_id: session.user.id,
       category: data.category,
       amount: data.amount,
@@ -618,11 +625,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       withdrawal_person: data.withdrawalPerson
     }]).select().single();
 
+    if (expensesError) {
+      console.error("Error adding expense", expensesError);
+      setExpenses(prev => prev.filter(e => e.id !== tempId));
+      return;
+    }
+
     if (inserted) {
       setExpenses(prev => prev.map(e => e.id === tempId ? { ...inserted, linkedListId: inserted.linked_list_id, withdrawalPerson: inserted.withdrawal_person } : e));
-    } else {
-      console.error("Error adding expense", error);
-      setExpenses(prev => prev.filter(e => e.id !== tempId));
     }
   };
 
@@ -640,9 +650,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteExpense = async (id: string) => {
+    const originalExpenses = [...expenses];
     setExpenses(prev => prev.filter(e => e.id !== id));
+
     const { error } = await supabase.from('expenses').delete().eq('id', id);
-    if (error) console.error("Error deleting expense", error);
+    if (error) {
+      console.error("Error deleting expense", error);
+      setExpenses(originalExpenses);
+    }
   };
 
   return (
