@@ -219,7 +219,7 @@ const Financial = () => {
       </div>
 
       {/* Cartões de Resumo */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 mb-10">
         {summaryData.map((card, idx) => (
           <div key={idx} className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-md transition-shadow group relative overflow-hidden">
             <div className="flex justify-between items-start mb-4">
@@ -245,8 +245,8 @@ const Financial = () => {
       </div>
 
       {/* Tabela de Histórico */}
-      <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-visible">
-        <div className="p-8 border-b border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
+        <div className="p-4 sm:p-8 border-b border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <div className="w-1.5 h-6 bg-indigo-500 rounded-full"></div>
             <h2 className="text-xl font-bold text-slate-800">Histórico de Custos</h2>
@@ -268,15 +268,15 @@ const Financial = () => {
           </div>
         </div>
 
-        <div className="overflow-visible min-h-[300px]">
+        <div className="overflow-x-auto min-h-[300px] custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-slate-50/50">
-                <th className="px-8 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Data</th>
-                <th className="px-8 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Categoria</th>
-                <th className="px-8 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest">Descrição / Lista</th>
-                <th className="px-8 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Valor</th>
-                <th className="px-8 py-4 text-center text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Ações</th>
+                <th className="px-4 sm:px-8 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Data</th>
+                <th className="px-4 sm:px-8 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Categoria</th>
+                <th className="px-4 sm:px-8 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-widest min-w-[200px]">Descrição / Lista</th>
+                <th className="px-4 sm:px-8 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Valor</th>
+                <th className="px-4 sm:px-8 py-4 text-center text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -296,15 +296,15 @@ const Financial = () => {
 
                   return (
                     <tr key={expense.id} className="hover:bg-indigo-50/30 transition-colors group relative">
-                      <td className="px-8 py-5 text-sm font-medium text-slate-600 italic whitespace-nowrap">
+                      <td className="px-4 sm:px-8 py-5 text-sm font-medium text-slate-600 italic whitespace-nowrap">
                         {formatDate(expense.date)}
                       </td>
-                      <td className="px-8 py-5 whitespace-nowrap">
+                      <td className="px-4 sm:px-8 py-5 whitespace-nowrap">
                         <span className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider ${styles.bg} ${styles.text}`}>
                           {CATEGORY_LABELS[expense.category]}
                         </span>
                       </td>
-                      <td className="px-8 py-5">
+                      <td className="px-4 sm:px-8 py-5 max-w-[300px]">
                         <p className="text-sm font-bold text-slate-700">
                           {expense.description || (expense.category === 'withdrawal' && expense.withdrawalPerson ? `Retirada ${expense.withdrawalPerson}` : '-')}
                         </p>
@@ -321,12 +321,12 @@ const Financial = () => {
                           </div>
                         )}
                       </td>
-                      <td className="px-8 py-5 text-right whitespace-nowrap">
+                      <td className="px-4 sm:px-8 py-5 text-right whitespace-nowrap">
                         <span className="text-sm font-black text-slate-900">
                           - {formatCurrency(expense.amount)}
                         </span>
                       </td>
-                      <td className="px-8 py-5 relative">
+                      <td className="px-4 sm:px-8 py-5 relative">
                         <div className="flex justify-center">
                           <button
                             onClick={(e) => toggleMenu(e, expense.id)}
@@ -428,7 +428,7 @@ const Financial = () => {
                 {/* Categoria */}
                 <div className="space-y-3">
                   <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Categoria</label>
-                  <div className="grid grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <CategoryButton
                       label="Tráfego"
                       icon={<Megaphone size={18} />}
