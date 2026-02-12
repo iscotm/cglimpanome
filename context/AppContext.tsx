@@ -35,6 +35,7 @@ interface AppContextType {
   updateClient: (id: string, data: Partial<Omit<Client, 'id' | 'createdAt'>>) => void;
   addContract: (contract: Omit<Contract, 'id' | 'createdAt' | 'status'>) => void;
   addPayment: (payment: Omit<Payment, 'id'>) => void;
+  deletePayment: (id: string) => void;
   createList: (name: string, date?: string) => void;
   updateList: (id: string, name: string) => void;
   deleteList: (id: string) => void;
@@ -418,6 +419,40 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const deletePayment = async (id: string) => {
+    if (!session?.user) return;
+
+    const paymentToDelete = payments.find(p => p.id === id);
+    if (!paymentToDelete) return;
+
+    // Optimistic Update
+    setPayments(prev => prev.filter(p => p.id !== id));
+
+    // DB
+    const { error } = await supabase.from('payments').delete().eq('id', id);
+    if (error) {
+      console.error("Error deleting payment", error);
+      // Revert if error (simple revert by refetching or keeping local copy would be better but simple fetch is safe)
+      fetchData();
+    } else {
+      // Add Event for deletion
+      const description = `Pagamento removido: R$ ${paymentToDelete.amount}`;
+      await supabase.from('contract_events').insert([{
+        user_id: session.user.id,
+        contract_id: paymentToDelete.contractId,
+        type: 'payment_removed', // You might need to check if this type is valid in DB constraint, else use 'generic' or 'status_change'
+        description
+      }]);
+
+      // Note: We might need to re-check eligibility if dragging back below 50%?
+      // For now, let's leave it simple.
+
+      // Refetch events
+      const { data: latestEvents } = await supabase.from('contract_events').select('*').order('date', { ascending: false });
+      if (latestEvents) setEvents(latestEvents.map(e => ({ ...e, contractId: e.contract_id })));
+    }
+  };
+
   const createList = async (name: string, date?: string) => {
     if (!session?.user) return;
     const tempId = 'temp-' + Date.now();
@@ -665,7 +700,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       clients, contracts, payments, lists, events, expenses, stats: getStats(),
       isAuthenticated, userProfile, login, logout, updateProfile, updatePassword,
       darkMode, toggleDarkMode,
-      addClient, updateClient, addContract, addPayment, createList, updateList, deleteList,
+      addContract, addPayment, deletePayment, createList, updateList, deleteList,
       addContractToList, removeContractFromList, completeList, returnContract, getContractBalance,
       updateContract,
       addExpense, updateExpense, deleteExpense

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { formatCurrency, formatDateTime, STATUS_LABELS, STATUS_COLORS } from '../constants';
-import { ArrowLeft, DollarSign, History, AlertTriangle, CheckCircle, Wallet, Calendar, Edit2 } from 'lucide-react';
+import { ArrowLeft, DollarSign, History, AlertTriangle, CheckCircle, Wallet, Calendar, Edit2, Send, Trash2 } from 'lucide-react';
 
 const ContractDetails = () => {
   const { contractId } = useParams<{ contractId: string }>();
-  const { contracts, clients, payments, events, addPayment, getContractBalance, returnContract, updateContract } = useApp();
+  const { contracts, clients, payments, events, addPayment, deletePayment, getContractBalance, returnContract, updateContract } = useApp();
 
   const [isPaymentModalOpen, setPaymentModalOpen] = useState(false);
   const [isReturnModalOpen, setReturnModalOpen] = useState(false);
@@ -55,6 +55,12 @@ const ContractDetails = () => {
     setEditValueModalOpen(false);
   };
 
+  const handleMakeEligible = async () => {
+    if (window.confirm('Tem certeza que deseja liberar este contrato para envio mesmo sem atingir 50% do pagamento?')) {
+      await updateContract(contract.id, { status: 'eligible' });
+    }
+  };
+
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-10">
       <div className="flex items-center justify-between">
@@ -65,6 +71,9 @@ const ContractDetails = () => {
           <button onClick={() => setReturnModalOpen(true)} className="inline-flex items-center px-4 py-2 bg-red-50 text-red-700 text-sm font-medium rounded-xl hover:bg-red-100 transition-colors border border-red-200">
             <AlertTriangle className="h-4 w-4 mr-1.5" /> Registrar Retorno
           </button>
+        )}
+        {contract.status === 'in_progress' && balance.percentage < 50 && (
+          <div className="hidden"></div>
         )}
       </div>
 
@@ -80,7 +89,7 @@ const ContractDetails = () => {
                   <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                     Contrato <span className="text-slate-400 font-normal text-base">#{contract.id.slice(0, 8)}</span>
                   </h2>
-                  <p className="text-slate-500 mt-1">Cliente: <span className="font-semibold text-slate-700">{client.name}</span></p>
+                  <p className="text-slate-500 mt-1">Cliente: <span className={`font-semibold ${['eligible', 'in_list', 'completed'].includes(contract.status) && balance.percentage < 50 ? 'text-orange-500' : 'text-slate-700'}`}>{client.name}</span></p>
                 </div>
                 <span className={`px-3 py-1.5 rounded-xl text-sm font-semibold shadow-sm border ${STATUS_COLORS[contract.status]}`}>
                   {STATUS_LABELS[contract.status]}
@@ -122,9 +131,14 @@ const ContractDetails = () => {
                 </div>
 
                 {balance.percentage < 50 && contract.status === 'in_progress' && (
-                  <div className="flex items-center mt-3 text-sm text-amber-600 bg-amber-50 p-2 rounded-xl border border-amber-100">
-                    <AlertTriangle className="h-4 w-4 mr-2" />
-                    <span>Faltam <strong>{formatCurrency((contract.totalValue * 0.5) - balance.paid)}</strong> para atingir 50% (Elegibilidade)</span>
+                  <div className="flex items-center justify-between mt-3 text-sm text-amber-600 bg-amber-50 p-2 rounded-xl border border-amber-100">
+                    <div className="flex items-center">
+                      <AlertTriangle className="h-4 w-4 mr-2" />
+                      <span>Faltam <strong>{formatCurrency((contract.totalValue * 0.5) - balance.paid)}</strong> para atingir 50% (Elegibilidade)</span>
+                    </div>
+                    <button onClick={handleMakeEligible} className="ml-4 inline-flex items-center px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-700 text-xs font-bold rounded-lg transition-colors">
+                      <Send className="h-3 w-3 mr-1.5" /> Elegível para Lista
+                    </button>
                   </div>
                 )}
               </div>
@@ -168,6 +182,17 @@ const ContractDetails = () => {
                       <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-lg mb-1">{p.method}</span>
                       {p.notes && <p className="text-xs text-slate-400 italic max-w-[150px] truncate">{p.notes}</p>}
                     </div>
+                    <button
+                      onClick={() => {
+                        if (window.confirm('Tem certeza que deseja excluir este pagamento?')) {
+                          deletePayment(p.id);
+                        }
+                      }}
+                      className="ml-4 p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-colors opacity-0 group-hover:opacity-100"
+                      title="Excluir Pagamento"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 ))
               )}

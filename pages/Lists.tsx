@@ -19,7 +19,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Lists = () => {
-  const { lists, contracts, clients, createList, updateList, deleteList, addContractToList, removeContractFromList, completeList } = useApp();
+  const { lists, contracts, clients, createList, updateList, deleteList, addContractToList, removeContractFromList, completeList, getContractBalance } = useApp();
   const [activeListId, setActiveListId] = useState<string | null>(null);
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -239,6 +239,7 @@ const Lists = () => {
                   ) : (
                     contractsInList.map(c => {
                       const client = clients.find(cl => cl.id === c.clientId);
+                      const balance = getContractBalance(c.id);
                       return (
                         <div key={c.id} className="bg-white border border-slate-100 rounded-[2rem] p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md hover:border-indigo-100 transition-all gap-4">
                           <div className="flex items-center gap-4">
@@ -246,7 +247,7 @@ const Lists = () => {
                               {client?.name.charAt(0)}
                             </div>
                             <div className="min-w-0">
-                              <h4 className="font-bold text-slate-800 leading-tight truncate">{client?.name}</h4>
+                              <h4 className={`font-bold leading-tight truncate ${balance.percentage < 50 ? 'text-orange-500' : 'text-slate-800'}`}>{client?.name}</h4>
                               <p className="text-xs font-mono text-slate-500 mt-0.5">{client?.document}</p>
                             </div>
                           </div>
