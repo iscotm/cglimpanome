@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { formatCurrency } from '../constants';
-import { 
-  DollarSign, 
-  TrendingUp, 
-  FileText, 
-  AlertCircle, 
-  MoreHorizontal, 
-  ArrowRight, 
+import {
+  DollarSign,
+  TrendingUp,
+  FileText,
+  AlertCircle,
+  MoreHorizontal,
+  ArrowRight,
   Plus,
   X,
   User,
   Phone,
-  Mail
+  Mail,
+  Calendar
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // --- COMPONENTES AUXILIARES ---
 
-const KPICard = ({ title, value, subtext, icon: Icon, colorClass, trend }: any) => (
-  <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+const KPICard = ({ title, value, subtext, icon: Icon, colorClass, trend, onClick }: any) => (
+  <div
+    onClick={onClick}
+    className={`bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 transition-all duration-300 ${onClick ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 hover:border-indigo-100' : ''}`}
+  >
     <div className="flex justify-between items-start mb-4">
       <div className={`p-3 rounded-2xl ${colorClass} bg-opacity-10`}>
         <Icon size={24} className={colorClass.replace('bg-', 'text-')} />
@@ -55,7 +59,7 @@ const HTMLBarChart = ({ stats }: { stats: any }) => {
         return (
           <div key={idx} className="flex flex-col items-center gap-2 w-full group h-full justify-end">
             <div className="w-full bg-slate-50 rounded-t-lg h-full relative flex items-end overflow-hidden">
-              <div 
+              <div
                 style={{ height: `${heightPercent}%` }}
                 className={`w-full ${item.color} ${item.hoverColor} transition-all duration-500 rounded-t-lg relative ${item.shadow}`}
               >
@@ -103,8 +107,8 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
         .replace(/(\d{3})(\d)/, '$1.$2')
         .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
     }
-    
-    setFormData({...formData, document: value});
+
+    setFormData({ ...formData, document: value });
   };
 
   return (
@@ -127,13 +131,13 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
                 </div>
-                <input 
+                <input
                   required
-                  type="text" 
-                  placeholder="Ex: João Silva" 
+                  type="text"
+                  placeholder="Ex: João Silva"
                   className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
                   value={formData.name}
-                  onChange={e => setFormData({...formData, name: e.target.value})}
+                  onChange={e => setFormData({ ...formData, name: e.target.value })}
                 />
               </div>
             </div>
@@ -143,11 +147,11 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <FileText className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
                 </div>
-                <input 
+                <input
                   required
-                  type="text" 
+                  type="text"
                   maxLength={18}
-                  placeholder="000.000.000-00" 
+                  placeholder="000.000.000-00"
                   className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
                   value={formData.document}
                   onChange={handleDocumentChange}
@@ -161,12 +165,12 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
                   </div>
-                  <input 
-                    type="tel" 
-                    placeholder="(00) 00000-0000" 
+                  <input
+                    type="tel"
+                    placeholder="(00) 00000-0000"
                     className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
                     value={formData.phone}
-                    onChange={e => setFormData({...formData, phone: e.target.value})}
+                    onChange={e => setFormData({ ...formData, phone: e.target.value })}
                   />
                 </div>
               </div>
@@ -176,12 +180,12 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
                   </div>
-                  <input 
-                    type="email" 
-                    placeholder="cliente@email.com" 
+                  <input
+                    type="email"
+                    placeholder="cliente@email.com"
                     className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
                     value={formData.email}
-                    onChange={e => setFormData({...formData, email: e.target.value})}
+                    onChange={e => setFormData({ ...formData, email: e.target.value })}
                   />
                 </div>
               </div>
@@ -197,11 +201,118 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   );
 };
 
+const RevenueExtractModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const { payments, contracts, clients, stats } = useApp();
+
+  if (!isOpen) return null;
+
+  const getClientName = (contractId: string) => {
+    const contract = contracts.find(c => c.id === contractId);
+    if (!contract) return "N/A";
+    const client = clients.find(c => c.id === contract.clientId);
+    return client ? client.name : "N/A";
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md transition-all duration-300">
+      <div className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col max-h-[85vh]">
+        <div className="px-10 py-8 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-emerald-50/50 to-white">
+          <div>
+            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Extrato de Receita</h2>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-slate-500 text-sm font-medium">Resumo detalhado de todas as entradas</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 hover:bg-white p-2.5 rounded-full shadow-sm border border-slate-100 transition-all hover:rotate-90">
+            <X size={22} />
+          </button>
+        </div>
+
+        <div className="p-8 bg-slate-50/50 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+            <div>
+              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Total Consolidado</p>
+              <h3 className="text-4xl font-black text-emerald-600">{formatCurrency(stats.totalRevenue)}</h3>
+            </div>
+            <div className="flex -space-x-3">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center">
+                  <User size={18} className="text-slate-400" />
+                </div>
+              ))}
+              <div className="w-10 h-10 rounded-full border-2 border-white bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs font-bold">
+                +{payments.length}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-8 py-4 custom-scrollbar">
+          <table className="w-full border-separate border-spacing-y-3">
+            <thead>
+              <tr className="text-left text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-4">
+                <th className="pb-2 font-black pl-4">Pagador / Cliente</th>
+                <th className="pb-2 font-black">Data</th>
+                <th className="pb-2 font-black text-right pr-4">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payments.length > 0 ? (
+                payments.map(p => (
+                  <tr key={p.id} className="group transition-all">
+                    <td className="py-4 px-4 bg-white rounded-l-[1.5rem] border-y border-l border-slate-100 group-hover:bg-slate-50 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl group-hover:scale-110 transition-transform">
+                          <DollarSign size={16} />
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-800 text-sm">{getClientName(p.contractId)}</p>
+                          <p className="text-slate-400 text-xs font-medium italic">{p.method}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 bg-white border-y border-slate-100 group-hover:bg-slate-50 transition-colors">
+                      <div className="flex items-center gap-1.5 text-slate-500 text-xs font-medium">
+                        <Calendar size={14} className="opacity-50" />
+                        {new Date(p.date).toLocaleDateString()}
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 bg-white rounded-r-[1.5rem] border-y border-r border-slate-100 text-right group-hover:bg-slate-50 transition-colors">
+                      <span className="font-black text-slate-900 text-sm">
+                        {formatCurrency(p.amount)}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={3} className="py-12 text-center text-slate-400 italic">
+                    Nenhum pagamento registrado ainda.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="p-8 bg-white border-t border-slate-50 flex justify-center shrink-0">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-2">
+            <AlertCircle size={14} className="text-indigo-400" />
+            Extrato gerado em tempo real pelo sistema
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- COMPONENTE PRINCIPAL ---
 
 const Dashboard = () => {
   const { stats, lists } = useApp();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
 
   return (
     <div className="w-full">
@@ -215,7 +326,7 @@ const Dashboard = () => {
           <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
             Atualizado hoje
           </span>
-          <button 
+          <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-2xl font-medium shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 active:scale-95"
           >
@@ -227,38 +338,39 @@ const Dashboard = () => {
 
       {/* Grid de KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <KPICard 
-          title="Receita Total" 
-          value={formatCurrency(stats.totalRevenue)} 
-          icon={DollarSign} 
+        <KPICard
+          title="Receita Total"
+          value={formatCurrency(stats.totalRevenue)}
+          icon={DollarSign}
           colorClass="bg-emerald-500 text-emerald-500"
           trend
+          onClick={() => setIsExtractModalOpen(true)}
         />
-        <KPICard 
-          title="Saldo a Receber" 
-          value={formatCurrency(stats.outstandingBalance)} 
-          icon={TrendingUp} 
+        <KPICard
+          title="Saldo a Receber"
+          value={formatCurrency(stats.outstandingBalance)}
+          icon={TrendingUp}
           colorClass="bg-blue-500 text-blue-500"
           trend
         />
-        <KPICard 
-          title="Contratos Ativos" 
-          value={stats.activeContracts} 
+        <KPICard
+          title="Contratos Ativos"
+          value={stats.activeContracts}
           subtext="Em progresso + Elegíveis"
-          icon={FileText} 
+          icon={FileText}
           colorClass="bg-violet-500 text-violet-500"
         />
-        <KPICard 
-          title="Casos Retornados" 
-          value={stats.returnedContracts} 
-          icon={AlertCircle} 
+        <KPICard
+          title="Casos Retornados"
+          value={stats.returnedContracts}
+          icon={AlertCircle}
           colorClass="bg-rose-500 text-rose-500"
         />
       </div>
 
       {/* Grid de Gráficos e Listas */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         {/* Gráfico de Barras */}
         <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
           <div className="flex items-center justify-between mb-8">
@@ -275,7 +387,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-bold text-slate-800 text-lg">Listas Recentes</h3>
           </div>
-          
+
           <div className="flex-1 space-y-4 overflow-y-auto max-h-[300px] custom-scrollbar pr-2">
             {lists.length > 0 ? (
               lists.slice(0, 5).map(list => (
@@ -293,7 +405,7 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-               /* Placeholder para itens vazios */
+              /* Placeholder para itens vazios */
               <div className="border-2 border-dashed border-slate-100 rounded-2xl p-4 flex items-center justify-center text-slate-400 text-sm h-24">
                 Nenhuma lista criada
               </div>
@@ -309,6 +421,7 @@ const Dashboard = () => {
 
       {/* Renderização Condicional do Modal */}
       <ModalNovoCliente isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <RevenueExtractModal isOpen={isExtractModalOpen} onClose={() => setIsExtractModalOpen(false)} />
     </div>
   );
 };
