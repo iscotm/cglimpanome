@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { formatCurrency, formatDateTime, STATUS_LABELS, STATUS_COLORS } from '../constants';
-import { ArrowLeft, DollarSign, History, AlertTriangle, CheckCircle, Wallet, Calendar, Edit2, Send, Trash2 } from 'lucide-react';
+import { ArrowLeft, DollarSign, History, AlertTriangle, CheckCircle, Wallet, Calendar, Edit2, Send, Trash2, MoreVertical } from 'lucide-react';
+import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 
 const ContractDetails = () => {
   const { contractId } = useParams<{ contractId: string }>();
@@ -14,6 +15,16 @@ const ContractDetails = () => {
   const [newPayment, setNewPayment] = useState({ amount: '', method: 'PIX', notes: '' });
   const [returnReason, setReturnReason] = useState('');
   const [newTotalValue, setNewTotalValue] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [paymentToDeleteId, setPaymentToDeleteId] = useState<string | null>(null);
+  const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
+
+  // Close menu when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = () => setActiveMenuId(null);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   const contract = contracts.find(c => c.id === contractId);
   const client = contract ? clients.find(c => c.id === contract.clientId) : null;
@@ -53,6 +64,24 @@ const ContractDetails = () => {
     if (!newTotalValue || isNaN(Number(newTotalValue))) return;
     await updateContract(contract.id, { totalValue: Number(newTotalValue) });
     setEditValueModalOpen(false);
+  };
+
+  const handleOpenDeleteModal = (id: string) => {
+    setPaymentToDeleteId(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDeletePayment = async () => {
+    if (paymentToDeleteId) {
+      await deletePayment(paymentToDeleteId);
+      setIsDeleteModalOpen(false);
+      setPaymentToDeleteId(null);
+    }
+  };
+
+  const toggleMenu = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setActiveMenuId(activeMenuId === id ? null : id);
   };
 
   const handleMakeEligible = async () => {
@@ -178,21 +207,37 @@ const ContractDetails = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-lg mb-1">{p.method}</span>
-                      {p.notes && <p className="text-xs text-slate-400 italic max-w-[150px] truncate">{p.notes}</p>}
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-lg mb-1">{p.method}</span>
+                        {p.notes && <p className="text-xs text-slate-400 italic max-w-[150px] truncate">{p.notes}</p>}
+                      </div>
+                      <div className="relative">
+                        <button
+                          onClick={(e) => toggleMenu(e, p.id)}
+                          className={`p-2 rounded-lg transition-all ${activeMenuId === p.id ? 'bg-indigo-100 text-indigo-600' : 'text-slate-300 hover:text-indigo-600 hover:bg-slate-50'}`}
+                        >
+                          <MoreVertical size={16} />
+                        </button>
+
+                        {/* Dropdown Menu Payments */}
+                        {activeMenuId === p.id && (
+                          <div className="absolute right-0 top-full mt-2 z-50 w-32 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                            <div className="p-1.5" onClick={(e) => e.stopPropagation()}>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); handleOpenDeleteModal(p.id); setActiveMenuId(null); }}
+                                className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-bold text-slate-600 hover:bg-rose-50 hover:text-rose-600 rounded-xl transition-colors group"
+                              >
+                                <div className="p-1.5 bg-slate-50 text-slate-400 rounded-lg group-hover:bg-rose-100 group-hover:text-rose-500 transition-colors">
+                                  <Trash2 size={12} />
+                                </div>
+                                Excluir
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <button
-                      onClick={() => {
-                        if (window.confirm('Tem certeza que deseja excluir este pagamento?')) {
-                          deletePayment(p.id);
-                        }
-                      }}
-                      className="ml-4 p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-colors opacity-0 group-hover:opacity-100"
-                      title="Excluir Pagamento"
-                    >
-                      <Trash2 size={16} />
-                    </button>
                   </div>
                 ))
               )}
@@ -327,6 +372,15 @@ const ContractDetails = () => {
           </div>
         </div>
       )}
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setPaymentToDeleteId(null);
+        }}
+        onConfirm={confirmDeletePayment}
+        description="Esta ação é irreversível. O pagamento será removido permanentemente dos registros deste contrato."
+      />
     </div>
   );
 };

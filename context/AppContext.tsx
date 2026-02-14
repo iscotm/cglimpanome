@@ -33,6 +33,7 @@ interface AppContextType {
   // Actions
   addClient: (client: Omit<Client, 'id' | 'createdAt'>) => void;
   updateClient: (id: string, data: Partial<Omit<Client, 'id' | 'createdAt'>>) => void;
+  deleteClient: (id: string) => Promise<void>;
   addContract: (contract: Omit<Contract, 'id' | 'createdAt' | 'status'>) => void;
   addPayment: (payment: Omit<Payment, 'id'>) => void;
   deletePayment: (id: string) => void;
@@ -280,7 +281,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   // Actions
   const addClient = async (data: Omit<Client, 'id' | 'createdAt'>) => {
-    if (!session?.user) return;
+    if (!session?.user) {
+      console.error("No active session found. Cannot add client.");
+      return;
+    }
     const newClientCtx = { ...data, id: 'temp-' + Date.now(), createdAt: new Date().toISOString() };
     // Optimistic Update
     setClients(prev => [newClientCtx, ...prev]);
@@ -291,13 +295,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       document: data.document,
       phone: data.phone,
       email: data.email,
-      notes: data.notes
+      notes: data.notes || ''
     }]).select().single();
 
     if (inserted) {
       setClients(prev => prev.map(c => c.id === newClientCtx.id ? inserted : c));
     } else if (error) {
-      console.error("Error adding client", error);
+      console.error("Error adding client:", error);
+      alert("Erro ao cadastrar cliente: " + (error.message || "Erro desconhecido"));
       setClients(prev => prev.filter(c => c.id !== newClientCtx.id)); // Revert
     }
   };
@@ -306,6 +311,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setClients(prev => prev.map(c => c.id === id ? { ...c, ...data } : c));
     const { error } = await supabase.from('clients').update(data).eq('id', id);
     if (error) console.error("Error updating client", error);
+  };
+
+  const deleteClient = async (id: string) => {
+    const originalClients = [...clients];
+    setClients(prev => prev.filter(c => c.id !== id));
+
+    const { error } = await supabase.from('clients').delete().eq('id', id);
+    if (error) {
+      console.error("Error deleting client:", error);
+      alert("Erro ao excluir cliente: " + (error.message || "Erro desconhecido"));
+      setClients(originalClients);
+    }
   };
 
   const addContract = async (data: Omit<Contract, 'id' | 'createdAt' | 'status'>) => {
@@ -700,6 +717,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       clients, contracts, payments, lists, events, expenses, stats: getStats(),
       isAuthenticated, userProfile, login, logout, updateProfile, updatePassword,
       darkMode, toggleDarkMode,
+      addClient, updateClient, deleteClient,
       addContract, addPayment, deletePayment, createList, updateList, deleteList,
       addContractToList, removeContractFromList, completeList, returnContract, getContractBalance,
       updateContract,
