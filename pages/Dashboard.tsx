@@ -313,6 +313,7 @@ const Dashboard = () => {
   const { stats, lists } = useApp();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExtractModalOpen, setIsExtractModalOpen] = useState(false);
+  const [isOutstandingModalOpen, setIsOutstandingModalOpen] = useState(false);
 
   return (
     <div className="w-full">
@@ -352,6 +353,7 @@ const Dashboard = () => {
           icon={TrendingUp}
           colorClass="bg-blue-500 text-blue-500"
           trend
+          onClick={() => setIsOutstandingModalOpen(true)}
         />
         <KPICard
           title="Contratos Ativos"
@@ -422,8 +424,133 @@ const Dashboard = () => {
       {/* Renderização Condicional do Modal */}
       <ModalNovoCliente isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <RevenueExtractModal isOpen={isExtractModalOpen} onClose={() => setIsExtractModalOpen(false)} />
+      <OutstandingBalanceModal isOpen={isOutstandingModalOpen} onClose={() => setIsOutstandingModalOpen(false)} />
     </div>
   );
 };
+
+const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const { contracts, clients, getContractBalance } = useApp();
+
+  if (!isOpen) return null;
+
+  const getClientName = (clientId: string) => {
+    const client = clients.find(c => c.id === clientId);
+    return client ? client.name : "N/A";
+  };
+
+  const outstandingContracts = contracts
+    .map(c => ({
+      ...c,
+      balance: getContractBalance(c.id)
+    }))
+    .filter(c => c.balance.remaining > 0)
+    .sort((a, b) => b.balance.remaining - a.balance.remaining);
+
+  const totalOutstanding = outstandingContracts.reduce((acc, c) => acc + c.balance.remaining, 0);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md transition-all duration-300">
+      <div className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col max-h-[85vh]">
+        <div className="px-10 py-8 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-blue-50/50 to-white">
+          <div>
+            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Saldo a Receber</h2>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-slate-500 text-sm font-medium">Clientes com pagamentos pendentes</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 hover:bg-white p-2.5 rounded-full shadow-sm border border-slate-100 transition-all hover:rotate-90">
+            <X size={22} />
+          </button>
+        </div>
+
+        <div className="p-8 bg-slate-50/50 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+            <div>
+              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Total Pendente</p>
+              <h3 className="text-4xl font-black text-blue-600">{formatCurrency(totalOutstanding)}</h3>
+            </div>
+            <div className="flex -space-x-3">
+              {Array.from({ length: Math.min(outstandingContracts.length, 5) }).map((_, i) => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center">
+                  <User size={18} className="text-slate-400" />
+                </div>
+              ))}
+              {outstandingContracts.length > 5 && (
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">
+                  +{outstandingContracts.length - 5}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-8 py-4 custom-scrollbar">
+          <table className="w-full border-separate border-spacing-y-3">
+            <thead>
+              <tr className="text-left text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] px-4">
+                <th className="pb-2 font-black pl-4">Cliente</th>
+                <th className="pb-2 font-black">Status</th>
+                <th className="pb-2 font-black text-right pr-4">Pendente</th>
+              </tr>
+            </thead>
+            <tbody>
+              {outstandingContracts.length > 0 ? (
+                outstandingContracts.map(c => (
+                  <tr key={c.id} className="group transition-all">
+                    <td className="py-4 px-4 bg-white rounded-l-[1.5rem] border-y border-l border-slate-100 group-hover:bg-slate-50 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">
+                          <User size={16} />
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-800 text-sm">{getClientName(c.clientId)}</p>
+                          <p className="text-slate-400 text-xs font-medium italic">Total: {formatCurrency(c.totalValue)}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 bg-white border-y border-slate-100 group-hover:bg-slate-50 transition-colors">
+                      <div className="flex flex-col gap-1">
+                        <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-blue-500 transition-all duration-500" 
+                            style={{ width: `${c.balance.percentage}%` }}
+                          />
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          {c.balance.percentage.toFixed(0)}% Pago
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 bg-white rounded-r-[1.5rem] border-y border-r border-slate-100 text-right group-hover:bg-slate-50 transition-colors">
+                      <span className="font-black text-slate-900 text-sm">
+                        {formatCurrency(c.balance.remaining)}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={3} className="py-12 text-center text-slate-400 italic">
+                    Nenhum saldo pendente encontrado.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="p-8 bg-white border-t border-slate-50 flex justify-center shrink-0">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-2">
+            <AlertCircle size={14} className="text-blue-400" />
+            Valores calculados com base em contratos e pagamentos atuais
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 export default Dashboard;
