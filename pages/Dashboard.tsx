@@ -402,7 +402,7 @@ const Dashboard = () => {
                   </div>
                   <div className="flex justify-between items-center text-sm text-slate-500">
                     <span>{new Date(list.createdAt).toLocaleDateString()}</span>
-                    <span>{list.itemsCount} itens</span>
+                    <span>{list.itemsCount} {list.itemsCount === 1 ? 'nome' : 'nomes'}</span>
                   </div>
                 </div>
               ))
@@ -513,8 +513,8 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                     <td className="py-4 bg-white border-y border-slate-100 group-hover:bg-slate-50 transition-colors">
                       <div className="flex flex-col gap-1">
                         <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-blue-500 transition-all duration-500" 
+                          <div
+                            className="h-full bg-blue-500 transition-all duration-500"
                             style={{ width: `${c.balance.percentage}%` }}
                           />
                         </div>

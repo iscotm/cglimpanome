@@ -183,15 +183,23 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     if (expensesError) console.error('Error fetching expenses:', expensesError);
   };
 
-  // Re-calculate derived state (List Item Counts) whenever contracts or lists change
+  // Re-calculate derived state (List Item Counts) whenever contracts change
   useEffect(() => {
-    if (contracts.length > 0 && lists.length > 0) {
-      setLists(prev => prev.map(l => {
+    if (lists.length === 0) return;
+
+    setLists(prev => {
+      let changed = false;
+      const next = prev.map(l => {
         const count = contracts.filter(c => c.listId === l.id).length;
-        return { ...l, itemsCount: count };
-      }));
-    }
-  }, [contracts.length, lists.length]);
+        if (l.itemsCount !== count) {
+          changed = true;
+          return { ...l, itemsCount: count };
+        }
+        return l;
+      });
+      return changed ? next : prev;
+    });
+  }, [contracts, lists.length]);
 
   // Apply Dark Mode
   useEffect(() => {

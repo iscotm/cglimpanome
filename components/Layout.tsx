@@ -15,7 +15,8 @@ import {
   Phone,
   FileText,
   Settings,
-  Trophy
+  Trophy,
+  Ticket
 } from 'lucide-react';
 
 const Layout = () => {
@@ -30,21 +31,42 @@ const Layout = () => {
   const [searchResults, setSearchResults] = useState<typeof clients>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Lógica de filtro de busca em tempo real
+  // Lógica de filtro de busca em tempo real (Clientes + Contratos)
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setSearchResults([]);
-
-    } else {
-      const lowerTerm = searchTerm.toLowerCase();
-      const filtered = clients.filter(c =>
-        c.name.toLowerCase().includes(lowerTerm) ||
-        (c.document && c.document.includes(lowerTerm)) ||
-        (c.phone && c.phone.includes(lowerTerm))
-      );
-      setSearchResults(filtered);
+      return;
     }
-  }, [searchTerm, clients]);
+
+    const lowerTerm = searchTerm.toLowerCase().replace('#', '');
+
+    // 1. Busca direta em clientes
+    const filteredClients = clients.filter(c =>
+      c.name.toLowerCase().includes(lowerTerm) ||
+      (c.document && c.document.includes(lowerTerm)) ||
+      (c.phone && c.phone.includes(lowerTerm))
+    );
+
+    // 2. Busca em contratos (pelo ID do contrato)
+    const matchingContracts = contracts.filter(con =>
+      con.id.toLowerCase().includes(lowerTerm)
+    );
+
+    // 3. Obtém os clientes dos contratos encontrados
+    const contractClients = matchingContracts
+      .map(con => clients.find(c => c.id === con.clientId))
+      .filter((c): c is typeof clients[0] => !!c);
+
+    // 4. Combina e remove duplicatas
+    const combined = [...filteredClients];
+    contractClients.forEach(cc => {
+      if (!combined.some(c => c.id === cc.id)) {
+        combined.push(cc);
+      }
+    });
+
+    setSearchResults(combined);
+  }, [searchTerm, clients, contracts]);
 
   // Fechar busca ao clicar fora
   useEffect(() => {
@@ -315,6 +337,15 @@ const Layout = () => {
                                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${STATUS_COLORS[statusKey]}`}>
                                       {STATUS_LABELS[statusKey]}
                                     </span>
+                                  )}
+                                  {searchTerm.length > 2 && (
+                                    contracts
+                                      .filter(con => con.clientId === client.id && con.id.toLowerCase().includes(searchTerm.toLowerCase().replace('#', '')))
+                                      .map(con => (
+                                        <span key={con.id} className="flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded border border-indigo-100 dark:border-indigo-800 animate-in fade-in zoom-in-95 duration-300">
+                                          <Ticket size={10} /> #{con.id.slice(0, 8)}
+                                        </span>
+                                      ))
                                   )}
                                 </div>
                               </div>

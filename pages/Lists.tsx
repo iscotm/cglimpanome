@@ -127,7 +127,7 @@ const Lists = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-400">{formatDate(list.createdAt)}</span>
                   <div className="flex items-center gap-1 text-xs font-semibold text-slate-500">
-                    <span>{list.itemsCount} {list.itemsCount === 1 ? 'item' : 'itens'}</span>
+                    <span>{list.itemsCount} {list.itemsCount === 1 ? 'nome' : 'nomes'}</span>
                     <ChevronRight size={14} className={`transition-transform ${activeListId === list.id ? 'text-indigo-400' : 'text-slate-300 group-hover:translate-x-1'}`} />
                   </div>
                 </div>
@@ -223,10 +223,10 @@ const Lists = () => {
                 <div className="flex items-center justify-between mb-4 px-2">
                   <div className="flex items-center gap-2 uppercase tracking-widest text-[11px] font-bold text-slate-400">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
-                    Itens na Lista
+                    Nomes na Lista
                   </div>
                   <span className="bg-slate-100 text-slate-600 text-[11px] font-bold px-2 py-0.5 rounded-full border border-slate-200">
-                    {contractsInList.length} {contractsInList.length === 1 ? 'Item' : 'Itens'}
+                    {contractsInList.length} {contractsInList.length === 1 ? 'Nome' : 'Nomes'}
                   </span>
                 </div>
 
