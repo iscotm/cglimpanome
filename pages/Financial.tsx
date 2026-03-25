@@ -32,7 +32,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 const CATEGORY_STYLES: Record<string, { bg: string, text: string, border: string }> = {
   traffic: { bg: 'bg-orange-100', text: 'text-orange-600', border: 'border-orange-200' },
-  partnership: { bg: 'bg-blue-100', text: 'text-blue-600', border: 'border-blue-200' },
+  partnership: { bg: 'bg-navy-100', text: 'text-navy-600', border: 'border-navy-200' },
   list: { bg: 'bg-slate-100', text: 'text-slate-900', border: 'border-slate-200' },
   withdrawal: { bg: 'bg-emerald-100', text: 'text-emerald-600', border: 'border-emerald-200' },
   other: { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-200' }
@@ -177,10 +177,10 @@ const Financial = () => {
       title: 'Parcerias',
       value: partnershipTotal,
       icon: Handshake,
-      color: 'bg-blue-50',
-      iconColor: 'text-blue-500',
+      color: 'bg-navy-50',
+      iconColor: 'text-navy-500',
       progress: totalExpenses > 0 ? (partnershipTotal / totalExpenses) * 100 : 0,
-      barColor: 'bg-blue-500'
+      barColor: 'bg-navy-500'
     },
     {
       title: 'Listas de Envio',
@@ -211,7 +211,7 @@ const Financial = () => {
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-100 flex items-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0"
+          className="bg-navy-700 hover:bg-navy-800 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-navy-100 flex items-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0"
         >
           <Plus size={20} strokeWidth={3} />
           Registrar Custo
@@ -248,7 +248,7 @@ const Financial = () => {
       <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
         <div className="p-4 sm:p-8 border-b border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 w-full sm:w-auto">
-            <div className="w-1.5 h-6 bg-indigo-500 rounded-full"></div>
+            <div className="w-1.5 h-6 bg-navy-500 rounded-full"></div>
             <h2 className="text-xl font-bold text-slate-800">Histórico de Custos</h2>
           </div>
           <div className="flex gap-2 w-full sm:w-auto">
@@ -260,7 +260,7 @@ const Financial = () => {
               <input
                 type="text"
                 placeholder="Buscar nos custos..."
-                className="w-full sm:w-64 pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 outline-none focus:ring-2 focus:ring-indigo-500/10 focus:bg-white transition-all"
+                className="w-full sm:w-64 pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 outline-none focus:ring-2 focus:ring-navy-500/10 focus:bg-white transition-all"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -295,7 +295,7 @@ const Financial = () => {
                   const styles = CATEGORY_STYLES[expense.category];
 
                   return (
-                    <tr key={expense.id} className="hover:bg-indigo-50/30 transition-colors group relative">
+                    <tr key={expense.id} className="hover:bg-navy-50/30 transition-colors group relative">
                       <td className="px-4 sm:px-8 py-5 text-sm font-medium text-slate-600 italic whitespace-nowrap">
                         {formatDate(expense.date)}
                       </td>
@@ -330,7 +330,7 @@ const Financial = () => {
                         <div className="flex justify-center">
                           <button
                             onClick={(e) => toggleMenu(e, expense.id)}
-                            className={`p-2 rounded-lg transition-all shadow-sm ${activeMenuId === expense.id ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 hover:text-indigo-600 hover:bg-white'}`}
+                            className={`p-2 rounded-lg transition-all shadow-sm ${activeMenuId === expense.id ? 'bg-navy-100 text-navy-700' : 'text-slate-400 hover:text-navy-700 hover:bg-white'}`}
                           >
                             <MoreVertical size={16} />
                           </button>
@@ -342,11 +342,11 @@ const Financial = () => {
                             <div className="p-1" onClick={(e) => e.stopPropagation()}>
                               <button
                                 onClick={(e) => { e.stopPropagation(); handleOpenModal(expense); }}
-                                className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-colors"
+                                className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-navy-700 rounded-lg transition-colors"
                               >
-                                <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-md">
-                                  <div className="w-1 h-1 bg-indigo-600 rounded-full mb-0.5 mx-auto"></div>
-                                  <div className="w-1 h-1 bg-indigo-600 rounded-full mx-auto"></div>
+                                <div className="p-1.5 bg-navy-50 text-navy-700 rounded-md">
+                                  <div className="w-1 h-1 bg-navy-700 rounded-full mb-0.5 mx-auto"></div>
+                                  <div className="w-1 h-1 bg-navy-700 rounded-full mx-auto"></div>
                                 </div>
                                 Editar
                               </button>
@@ -373,7 +373,7 @@ const Financial = () => {
 
         {filteredExpenses.length > 5 && (
           <div className="p-6 bg-slate-50/30 border-t border-slate-50 flex justify-center">
-            <button className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 transition-all hover:gap-2">
+            <button className="text-sm font-bold text-navy-700 hover:text-navy-800 flex items-center gap-1 transition-all hover:gap-2">
               Ver todo o histórico <ChevronRight size={16} />
             </button>
           </div>
@@ -418,7 +418,7 @@ const Financial = () => {
                       required
                       autoFocus
                       placeholder="0,00"
-                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-xl font-bold text-slate-900 focus:border-indigo-500/30 focus:bg-white outline-none transition-all placeholder:text-slate-300"
+                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-xl font-bold text-slate-900 focus:border-navy-500/30 focus:bg-white outline-none transition-all placeholder:text-slate-300"
                       value={newExpense.amount}
                       onChange={e => setNewExpense({ ...newExpense, amount: e.target.value })}
                     />
@@ -441,7 +441,7 @@ const Financial = () => {
                       icon={<Handshake size={18} />}
                       active={newExpense.category === 'partnership'}
                       onClick={() => setNewExpense({ ...newExpense, category: 'partnership' })}
-                      activeColor="border-blue-500 bg-blue-50 text-blue-600 shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
+                      activeColor="border-navy-500 bg-navy-50 text-navy-600 shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
                     />
                     <CategoryButton
                       label="Envio"
@@ -527,7 +527,7 @@ const Financial = () => {
                   <input
                     type="text"
                     placeholder="Ex: Descrição do custo"
-                    className="w-full px-5 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm font-medium text-slate-900 focus:border-indigo-500/30 focus:bg-white outline-none transition-all"
+                    className="w-full px-5 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm font-medium text-slate-900 focus:border-navy-500/30 focus:bg-white outline-none transition-all"
                     value={newExpense.description}
                     onChange={e => setNewExpense({ ...newExpense, description: e.target.value })}
                   />
@@ -541,7 +541,7 @@ const Financial = () => {
                     <input
                       type="date"
                       required
-                      className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm font-medium text-slate-900 focus:border-indigo-500/30 focus:bg-white outline-none transition-all"
+                      className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm font-medium text-slate-900 focus:border-navy-500/30 focus:bg-white outline-none transition-all"
                       value={newExpense.date}
                       onChange={e => setNewExpense({ ...newExpense, date: e.target.value })}
                     />
@@ -560,7 +560,7 @@ const Financial = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-[1.5] py-4 px-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
+                  className="flex-[1.5] py-4 px-6 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl font-bold shadow-lg shadow-navy-100 transition-all active:scale-[0.98]"
                 >
                   {editingId ? 'Atualizar' : 'Salvar Custo'}
                 </button>

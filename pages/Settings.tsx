@@ -123,7 +123,7 @@ const Settings = () => {
   const Toggle = ({ checked, onChange }: { checked: boolean, onChange: () => void }) => (
     <button
       onClick={onChange}
-      className={`w-12 h-7 rounded-full transition-colors relative ${checked ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'}`}
+      className={`w-12 h-7 rounded-full transition-colors relative ${checked ? 'bg-navy-700' : 'bg-slate-200 dark:bg-slate-700'}`}
     >
       <div className={`w-5 h-5 bg-white rounded-full shadow-md absolute top-1 transition-transform ${checked ? 'left-6' : 'left-1'}`}></div>
     </button>
@@ -196,7 +196,7 @@ const Settings = () => {
         {/* Perfil */}
         <section className="bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+            <div className="p-3 bg-navy-50 dark:bg-navy-950/30 text-navy-700 dark:text-navy-400 rounded-2xl">
               <User size={24} />
             </div>
             <h2 className="text-xl font-bold text-slate-800 dark:text-white">Perfil do Usuário</h2>
@@ -210,7 +210,7 @@ const Settings = () => {
                   type="text"
                   value={profileForm.name}
                   onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
-                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-navy-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
                 />
               </div>
               <div>
@@ -221,13 +221,13 @@ const Settings = () => {
                     type="email"
                     value={profileForm.email}
                     onChange={(e) => setProfileForm({ ...profileForm, email: e.target.value })}
-                    className="w-full pl-12 pr-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                    className="w-full pl-12 pr-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-navy-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
                   />
                 </div>
               </div>
             </div>
             <div className="flex justify-end">
-              <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-indigo-100 dark:shadow-none transition-all active:scale-95 flex items-center gap-2">
+              <button type="submit" className="bg-navy-700 hover:bg-navy-800 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-navy-100 dark:shadow-none transition-all active:scale-95 flex items-center gap-2">
                 <Save size={18} /> Salvar Perfil
               </button>
             </div>
@@ -253,7 +253,7 @@ const Settings = () => {
                     value={passwordForm.newPassword}
                     onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
                     placeholder="••••••"
-                    className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                    className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-navy-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
                   />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -267,7 +267,7 @@ const Settings = () => {
                   value={passwordForm.confirmPassword}
                   onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                   placeholder="••••••"
-                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium focus:border-navy-500/30 focus:bg-white dark:focus:bg-slate-900 outline-none transition-all"
                 />
               </div>
             </div>
@@ -290,7 +290,7 @@ const Settings = () => {
 
           <div className="bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center border border-slate-100 dark:border-slate-700">
             <div className="mb-4 p-4 bg-white dark:bg-slate-800 rounded-full shadow-sm">
-              <FileText size={32} className="text-indigo-500" />
+              <FileText size={32} className="text-navy-500" />
             </div>
             <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Central de Protocolos</h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm max-w-md mb-6">
@@ -298,7 +298,7 @@ const Settings = () => {
             </p>
             <button
               onClick={() => setShowProtocolModal(true)}
-              className="group relative bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-2xl font-bold shadow-xl shadow-indigo-200 dark:shadow-none transition-all active:scale-95 flex items-center gap-3"
+              className="group relative bg-navy-700 hover:bg-navy-800 text-white px-8 py-3 rounded-2xl font-bold shadow-xl shadow-navy-200 dark:shadow-none transition-all active:scale-95 flex items-center gap-3"
             >
               <FileText size={20} className="group-hover:rotate-12 transition-transform" />
               Gerar Novo Protocolo
@@ -318,7 +318,7 @@ const Settings = () => {
           <div className="max-w-2xl">
             <div className="flex items-center justify-between p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700">
               <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white ${darkMode ? 'bg-indigo-500' : 'bg-slate-400'}`}>
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white ${darkMode ? 'bg-navy-500' : 'bg-slate-400'}`}>
                   <Moon size={24} />
                 </div>
                 <div>
@@ -333,7 +333,7 @@ const Settings = () => {
 
         {/* Gerenciamento de Dados (Utility) */}
         <section className="bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-slate-700 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-indigo-400 to-rose-400"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-navy-400 to-rose-400"></div>
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl">
               <Database size={24} />
@@ -344,12 +344,12 @@ const Settings = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 rounded-[2rem] border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800 hover:shadow-md transition-all">
               <h3 className="font-bold text-slate-800 dark:text-white mb-2 flex items-center gap-2">
-                <Download size={18} className="text-indigo-600 dark:text-indigo-400" /> Exportar Backup
+                <Download size={18} className="text-navy-700 dark:text-navy-400" /> Exportar Backup
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Baixe um arquivo JSON contendo todos os clientes, contratos e histórico financeiro.</p>
               <button
                 onClick={handleExportData}
-                className="w-full py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-indigo-600 dark:text-indigo-400 font-bold rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors"
+                className="w-full py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-navy-700 dark:text-navy-400 font-bold rounded-xl hover:bg-navy-50 dark:hover:bg-navy-950/30 hover:border-navy-200 dark:hover:border-navy-900 transition-colors"
               >
                 Baixar Dados
               </button>
@@ -378,7 +378,7 @@ const Settings = () => {
           <div className="bg-white dark:bg-slate-800 w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-700 animate-in zoom-in-95 duration-300">
             <div className="p-6 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="text-indigo-600 dark:text-indigo-400" size={20} />
+                <ShieldCheck className="text-navy-700 dark:text-navy-400" size={20} />
                 <h3 className="text-xl font-bold text-slate-800 dark:text-white">Protocolar</h3>
               </div>
               <button onClick={() => setShowProtocolModal(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
@@ -393,7 +393,7 @@ const Settings = () => {
                   required
                   type="text"
                   placeholder="Nome do titular"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-navy-500 focus:ring-4 focus:ring-navy-500/10 outline-none transition-all"
                   value={protocolFormData.nome}
                   onChange={(e) => setProtocolFormData({ ...protocolFormData, nome: e.target.value })}
                 />
@@ -405,7 +405,7 @@ const Settings = () => {
                   type="text"
                   placeholder="000.000.000-00"
                   maxLength={18}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all font-mono"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-navy-500 focus:ring-4 focus:ring-navy-500/10 outline-none transition-all font-mono"
                   value={protocolFormData.documento}
                   onChange={handleProtocolDocumentChange}
                 />
@@ -414,7 +414,7 @@ const Settings = () => {
               <button
                 type="submit"
                 disabled={isProtocolLoading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2"
+                className="w-full bg-navy-700 hover:bg-navy-800 disabled:bg-navy-300 text-white py-4 rounded-2xl font-bold shadow-lg shadow-navy-200 dark:shadow-none transition-all flex items-center justify-center gap-2"
               >
                 {isProtocolLoading ? (
                   <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />

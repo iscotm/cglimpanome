@@ -91,7 +91,7 @@ const Lists = () => {
           <h2 className="font-bold text-slate-800">Listas de Envio</h2>
           <button
             onClick={() => setCreateModalOpen(true)}
-            className="p-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md shadow-indigo-100"
+            className="p-2 rounded-xl bg-navy-700 text-white hover:bg-navy-800 transition-colors shadow-md shadow-navy-100"
           >
             <Plus size={18} />
           </button>
@@ -109,12 +109,12 @@ const Lists = () => {
                 key={list.id}
                 onClick={() => setActiveListId(list.id)}
                 className={`p-5 rounded-2xl cursor-pointer transition-all group ${activeListId === list.id
-                  ? 'border-2 border-indigo-100 bg-indigo-50/30'
+                  ? 'border-2 border-navy-100 bg-navy-50/30'
                   : 'border border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50 opacity-90 hover:opacity-100'
                   }`}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className={`font-bold text-sm ${activeListId === list.id ? 'text-indigo-900' : 'text-slate-600'}`}>
+                  <h3 className={`font-bold text-sm ${activeListId === list.id ? 'text-navy-950' : 'text-slate-600'}`}>
                     {list.name}
                   </h3>
                   <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border uppercase tracking-tight ${list.status === 'completed'
@@ -128,7 +128,7 @@ const Lists = () => {
                   <span className="text-xs text-slate-400">{formatDate(list.createdAt)}</span>
                   <div className="flex items-center gap-1 text-xs font-semibold text-slate-500">
                     <span>{list.itemsCount} {list.itemsCount === 1 ? 'nome' : 'nomes'}</span>
-                    <ChevronRight size={14} className={`transition-transform ${activeListId === list.id ? 'text-indigo-400' : 'text-slate-300 group-hover:translate-x-1'}`} />
+                    <ChevronRight size={14} className={`transition-transform ${activeListId === list.id ? 'text-navy-400' : 'text-slate-300 group-hover:translate-x-1'}`} />
                   </div>
                 </div>
               </div>
@@ -149,7 +149,7 @@ const Lists = () => {
                 <div>
                   <div className="flex items-center gap-3">
                     <h2 className="text-xl font-bold text-slate-800">{activeList.name}</h2>
-                    <button onClick={openEditModal} className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                    <button onClick={openEditModal} className="p-1.5 text-slate-400 hover:text-navy-700 hover:bg-navy-50 rounded-lg transition-colors">
                       <Pencil size={16} />
                     </button>
                   </div>
@@ -174,7 +174,7 @@ const Lists = () => {
                     navigator.clipboard.writeText(text);
                     alert('Lista copiada com sucesso!');
                   }}
-                  className="p-3 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-2xl transition-colors"
+                  className="p-3 text-navy-700 bg-navy-50 hover:bg-navy-100 rounded-2xl transition-colors"
                   title="Copiar lista"
                 >
                   <Copy size={20} />
@@ -222,7 +222,7 @@ const Lists = () => {
               <div>
                 <div className="flex items-center justify-between mb-4 px-2">
                   <div className="flex items-center gap-2 uppercase tracking-widest text-[11px] font-bold text-slate-400">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-navy-400"></div>
                     Nomes na Lista
                   </div>
                   <span className="bg-slate-100 text-slate-600 text-[11px] font-bold px-2 py-0.5 rounded-full border border-slate-200">
@@ -241,9 +241,9 @@ const Lists = () => {
                       const client = clients.find(cl => cl.id === c.clientId);
                       const balance = getContractBalance(c.id);
                       return (
-                        <div key={c.id} className="bg-white border border-slate-100 rounded-[2rem] p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md hover:border-indigo-100 transition-all gap-4">
+                        <div key={c.id} className="bg-white border border-slate-100 rounded-[2rem] p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md hover:border-navy-100 transition-all gap-4">
                           <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 text-indigo-600 font-bold text-lg shrink-0">
+                            <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 text-navy-700 font-bold text-lg shrink-0">
                               {client?.name.charAt(0)}
                             </div>
                             <div className="min-w-0">
@@ -296,7 +296,7 @@ const Lists = () => {
                           <ListTodo size={32} />
                         </div>
                         <p className="text-slate-400 text-sm font-medium">Nenhum contrato elegível no momento.</p>
-                        <Link to="/clients" className="mt-4 text-xs font-bold text-indigo-500 hover:text-indigo-700 underline-offset-4 hover:underline transition-all">
+                        <Link to="/clients" className="mt-4 text-xs font-bold text-navy-500 hover:text-navy-800 underline-offset-4 hover:underline transition-all">
                           Ver todos os clientes
                         </Link>
                       </div>
@@ -311,7 +311,7 @@ const Lists = () => {
                             </div>
                             <button
                               onClick={() => handleAddToList(c.id)}
-                              className="w-full sm:w-auto ml-0 sm:ml-4 p-2 bg-indigo-50 text-indigo-600 rounded-xl hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center shadow-sm"
+                              className="w-full sm:w-auto ml-0 sm:ml-4 p-2 bg-navy-50 text-navy-700 rounded-xl hover:bg-navy-700 hover:text-white transition-colors flex items-center justify-center shadow-sm"
                             >
                               <Plus size={20} />
                             </button>
@@ -362,7 +362,7 @@ const Lists = () => {
                     required
                     type="text"
                     placeholder="Ex: Lote Fevereiro 2024"
-                    className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-lg font-medium text-slate-900 focus:border-indigo-500/30 focus:bg-white outline-none transition-all placeholder:text-slate-300"
+                    className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-lg font-medium text-slate-900 focus:border-navy-500/30 focus:bg-white outline-none transition-all placeholder:text-slate-300"
                     value={newListName}
                     onChange={e => setNewListName(e.target.value)}
                   />
@@ -375,7 +375,7 @@ const Lists = () => {
                     <input
                       type="date"
                       required
-                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm font-medium text-slate-900 focus:border-indigo-500/30 focus:bg-white outline-none transition-all"
+                      className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl text-sm font-medium text-slate-900 focus:border-navy-500/30 focus:bg-white outline-none transition-all"
                       value={newListDate}
                       onChange={e => setNewListDate(e.target.value)}
                     />
@@ -385,7 +385,7 @@ const Lists = () => {
 
               <div className="p-8 bg-slate-50/50 flex gap-3 shrink-0 border-t border-slate-100">
                 <button type="button" onClick={() => setCreateModalOpen(false)} className="flex-1 py-4 px-6 rounded-2xl font-bold text-slate-500 hover:bg-white transition-all border border-transparent hover:border-slate-200">Cancelar</button>
-                <button type="submit" className="flex-[1.5] py-4 px-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]">Criar Lista</button>
+                <button type="submit" className="flex-[1.5] py-4 px-6 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl font-bold shadow-lg shadow-navy-100 transition-all active:scale-[0.98]">Criar Lista</button>
               </div>
             </form>
           </div>
@@ -404,14 +404,14 @@ const Lists = () => {
                 <input
                   autoFocus
                   type="text"
-                  className="w-full border border-slate-300 rounded-2xl p-4 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-slate-900"
+                  className="w-full border border-slate-300 rounded-2xl p-4 focus:ring-navy-500 focus:border-navy-500 shadow-sm text-slate-900"
                   value={editingListName}
                   onChange={e => setEditingListName(e.target.value)}
                 />
               </div>
               <div className="flex justify-end gap-3">
                 <button type="button" onClick={() => setEditModalOpen(false)} className="px-6 py-3 border border-slate-300 rounded-2xl text-slate-700 font-medium hover:bg-slate-50">Cancelar</button>
-                <button type="submit" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-md shadow-indigo-200">Salvar Alterações</button>
+                <button type="submit" className="px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl font-bold shadow-md shadow-navy-200">Salvar Alterações</button>
               </div>
             </form>
           </div>

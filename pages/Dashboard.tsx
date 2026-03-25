@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 const KPICard = ({ title, value, subtext, icon: Icon, colorClass, trend, onClick }: any) => (
   <div
     onClick={onClick}
-    className={`bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 transition-all duration-300 ${onClick ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 hover:border-indigo-100' : ''}`}
+    className={`bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 transition-all duration-300 ${onClick ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 hover:border-navy-100' : ''}`}
   >
     <div className="flex justify-between items-start mb-4">
       <div className={`p-3 rounded-2xl ${colorClass} bg-opacity-10`}>
@@ -44,10 +44,10 @@ const KPICard = ({ title, value, subtext, icon: Icon, colorClass, trend, onClick
 
 const HTMLBarChart = ({ stats }: { stats: any }) => {
   const data = [
-    { label: 'Ativos', value: stats.activeContracts, color: 'bg-indigo-500', hoverColor: 'hover:bg-indigo-600', shadow: 'group-hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]' },
+    { label: 'Ativos', value: stats.activeContracts, color: 'bg-navy-600', hoverColor: 'hover:bg-navy-700', shadow: 'group-hover:shadow-[0_0_20px_rgba(35,53,128,0.3)]' },
     { label: 'Elegíveis', value: stats.eligibleContracts, color: 'bg-emerald-500', hoverColor: 'hover:bg-emerald-600', shadow: 'group-hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]' },
-    { label: 'Em Lista', value: stats.inListContracts, color: 'bg-purple-500', hoverColor: 'hover:bg-purple-600', shadow: 'group-hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]' },
-    { label: 'Concluídos', value: stats.completedContracts, color: 'bg-slate-700', hoverColor: 'hover:bg-slate-800', shadow: 'group-hover:shadow-[0_0_20px_rgba(51,65,85,0.3)]' },
+    { label: 'Em Lista', value: stats.inListContracts, color: 'bg-navy-400', hoverColor: 'hover:bg-navy-500', shadow: 'group-hover:shadow-[0_0_20px_rgba(74,90,158,0.3)]' },
+    { label: 'Concluídos', value: stats.slate-700, color: 'bg-slate-700', hoverColor: 'hover:bg-slate-800', shadow: 'group-hover:shadow-[0_0_20px_rgba(51,65,85,0.3)]' },
   ];
 
   const maxValue = Math.max(...data.map(d => d.value), 1); // Avoid division by zero
@@ -129,13 +129,13 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
               <label className="text-sm font-semibold text-slate-700 ml-1">Nome Completo / Razão Social</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                  <User className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                 </div>
                 <input
                   required
                   type="text"
                   placeholder="Ex: João Silva"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                   value={formData.name}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -145,14 +145,14 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
               <label className="text-sm font-semibold text-slate-700 ml-1">CPF / CNPJ</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <FileText className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                  <FileText className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                 </div>
                 <input
                   required
                   type="text"
                   maxLength={18}
                   placeholder="000.000.000-00"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                   value={formData.document}
                   onChange={handleDocumentChange}
                 />
@@ -163,12 +163,12 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <label className="text-sm font-semibold text-slate-700 ml-1">Telefone</label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                    <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                   </div>
                   <input
                     type="tel"
                     placeholder="(00) 00000-0000"
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                   />
@@ -178,12 +178,12 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <label className="text-sm font-semibold text-slate-700 ml-1">E-mail</label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                    <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                   </div>
                   <input
                     type="email"
                     placeholder="cliente@email.com"
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -193,7 +193,7 @@ const ModalNovoCliente = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
           </div>
           <div className="px-8 py-5 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
             <button type="button" onClick={onClose} className="px-6 py-3 rounded-2xl text-slate-600 font-medium hover:bg-slate-200 transition-all">Cancelar</button>
-            <button type="submit" className="px-8 py-3 rounded-2xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 shadow-lg shadow-indigo-500/30 transition-all">Salvar Cliente</button>
+            <button type="submit" className="px-8 py-3 rounded-2xl bg-navy-700 text-white font-semibold hover:bg-navy-800 shadow-lg shadow-navy-700/30 transition-all">Salvar Cliente</button>
           </div>
         </form>
       </div>
@@ -241,7 +241,7 @@ const RevenueExtractModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                   <User size={18} className="text-slate-400" />
                 </div>
               ))}
-              <div className="w-10 h-10 rounded-full border-2 border-white bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs font-bold">
+              <div className="w-10 h-10 rounded-full border-2 border-white bg-navy-50 text-navy-700 flex items-center justify-center text-xs font-bold">
                 +{payments.length}
               </div>
             </div>
@@ -263,7 +263,7 @@ const RevenueExtractModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
                   <tr key={p.id} className="group transition-all">
                     <td className="py-4 px-4 bg-white rounded-l-[1.5rem] border-y border-l border-slate-100 group-hover:bg-slate-50 transition-colors">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl group-hover:scale-110 transition-transform">
+                        <div className="p-2 bg-navy-50 text-navy-700 rounded-xl group-hover:scale-110 transition-transform">
                           <DollarSign size={16} />
                         </div>
                         <div>
@@ -298,7 +298,7 @@ const RevenueExtractModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
 
         <div className="p-8 bg-white border-t border-slate-50 flex justify-center shrink-0">
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-2">
-            <AlertCircle size={14} className="text-indigo-400" />
+            <AlertCircle size={14} className="text-navy-400" />
             Extrato gerado em tempo real pelo sistema
           </p>
         </div>
@@ -324,12 +324,12 @@ const Dashboard = () => {
           <p className="text-slate-500 mt-1">Acompanhe o desempenho e métricas em tempo real.</p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
+          <span className="text-xs font-medium text-navy-700 bg-navy-50 px-3 py-1.5 rounded-full border border-navy-100">
             Atualizado hoje
           </span>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-2xl font-medium shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 bg-navy-700 hover:bg-navy-800 text-white px-5 py-2.5 rounded-2xl font-medium shadow-lg shadow-navy-700/30 transition-all hover:scale-105 active:scale-95"
           >
             <Plus size={18} />
             Adicionar Cliente
@@ -351,7 +351,7 @@ const Dashboard = () => {
           title="Saldo a Receber"
           value={formatCurrency(stats.outstandingBalance)}
           icon={TrendingUp}
-          colorClass="bg-blue-500 text-blue-500"
+          colorClass="bg-navy-500 text-navy-500"
           trend
           onClick={() => setIsOutstandingModalOpen(true)}
         />
@@ -360,7 +360,7 @@ const Dashboard = () => {
           value={stats.activeContracts}
           subtext="Em progresso + Elegíveis"
           icon={FileText}
-          colorClass="bg-violet-500 text-violet-500"
+          colorClass="bg-navy-400 text-navy-400"
         />
         <KPICard
           title="Casos Retornados"
@@ -414,7 +414,7 @@ const Dashboard = () => {
             )}
           </div>
 
-          <Link to="/lists" className="w-full mt-6 py-2.5 text-indigo-600 font-medium hover:bg-indigo-50 rounded-2xl transition-colors flex items-center justify-center gap-2 group">
+          <Link to="/lists" className="w-full mt-6 py-2.5 text-navy-700 font-medium hover:bg-navy-50 rounded-2xl transition-colors flex items-center justify-center gap-2 group">
             Ver todas
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -452,12 +452,12 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md transition-all duration-300">
       <div className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col max-h-[85vh]">
-        <div className="px-10 py-8 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-blue-50/50 to-white">
+        <div className="px-10 py-8 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-navy-50/50 to-white">
           <div>
             <h2 className="text-2xl font-black text-slate-800 tracking-tight">Saldo a Receber</h2>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-slate-500 text-sm font-medium">Clientes com pagamentos pendentes</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-navy-500 animate-pulse"></span>
             </div>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-600 hover:bg-white p-2.5 rounded-full shadow-sm border border-slate-100 transition-all hover:rotate-90">
@@ -469,7 +469,7 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
             <div>
               <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Total Pendente</p>
-              <h3 className="text-4xl font-black text-blue-600">{formatCurrency(totalOutstanding)}</h3>
+              <h3 className="text-4xl font-black text-navy-600">{formatCurrency(totalOutstanding)}</h3>
             </div>
             <div className="flex -space-x-3">
               {Array.from({ length: Math.min(outstandingContracts.length, 5) }).map((_, i) => (
@@ -478,7 +478,7 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                 </div>
               ))}
               {outstandingContracts.length > 5 && (
-                <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-navy-50 text-navy-700 flex items-center justify-center text-xs font-bold">
                   +{outstandingContracts.length - 5}
                 </div>
               )}
@@ -501,7 +501,7 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                   <tr key={c.id} className="group transition-all">
                     <td className="py-4 px-4 bg-white rounded-l-[1.5rem] border-y border-l border-slate-100 group-hover:bg-slate-50 transition-colors">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">
+                        <div className="p-2 bg-navy-50 text-navy-700 rounded-xl group-hover:scale-110 transition-transform">
                           <User size={16} />
                         </div>
                         <div>
@@ -514,7 +514,7 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
                       <div className="flex flex-col gap-1">
                         <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-blue-500 transition-all duration-500"
+                            className="h-full bg-navy-500 transition-all duration-500"
                             style={{ width: `${c.balance.percentage}%` }}
                           />
                         </div>
@@ -543,7 +543,7 @@ const OutstandingBalanceModal = ({ isOpen, onClose }: { isOpen: boolean; onClose
 
         <div className="p-8 bg-white border-t border-slate-50 flex justify-center shrink-0">
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-2">
-            <AlertCircle size={14} className="text-blue-400" />
+            <AlertCircle size={14} className="text-navy-400" />
             Valores calculados com base em contratos e pagamentos atuais
           </p>
         </div>

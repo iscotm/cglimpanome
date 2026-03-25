@@ -133,7 +133,7 @@ const Clients = () => {
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-2xl shadow-lg shadow-indigo-200 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center justify-center px-4 py-2.5 bg-navy-700 hover:bg-navy-800 text-white text-sm font-medium rounded-2xl shadow-lg shadow-navy-200 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500"
         >
           <Plus className="mr-2 h-4 w-4" />
           Novo Cliente
@@ -149,7 +149,7 @@ const Clients = () => {
             <input
               type="text"
               placeholder="Buscar por nome, CPF ou CNPJ..."
-              className="block w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm text-slate-900 transition-all shadow-sm"
+              className="block w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 text-sm text-slate-900 transition-all shadow-sm"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             />
@@ -176,7 +176,7 @@ const Clients = () => {
                     <tr key={client.id} className="hover:bg-slate-50 transition-colors group">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="h-10 w-10 flex-shrink-0 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
+                          <div className="h-10 w-10 flex-shrink-0 rounded-full bg-navy-100 flex items-center justify-center text-navy-700 font-bold text-sm">
                             {client.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="ml-4">
@@ -207,14 +207,14 @@ const Clients = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium relative">
                         <div className="flex justify-end items-center gap-3">
-                          <Link to={`/clients/${client.id}`} className="text-indigo-600 hover:text-indigo-900 inline-flex items-center bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-xl transition-colors">
+                          <Link to={`/clients/${client.id}`} className="text-navy-700 hover:text-navy-950 inline-flex items-center bg-navy-50 hover:bg-navy-100 px-3 py-1.5 rounded-xl transition-colors">
                             Ver <ChevronRight className="ml-1 h-3.5 w-3.5" />
                           </Link>
 
                           <div className="relative">
                             <button
                               onClick={(e) => toggleMenu(e, client.id)}
-                              className={`p-2 rounded-lg transition-all ${activeMenuId === client.id ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 hover:text-indigo-600 hover:bg-slate-50'}`}
+                              className={`p-2 rounded-lg transition-all ${activeMenuId === client.id ? 'bg-navy-100 text-navy-700' : 'text-slate-400 hover:text-navy-700 hover:bg-slate-50'}`}
                             >
                               <MoreVertical size={18} />
                             </button>
@@ -225,9 +225,9 @@ const Clients = () => {
                                 <div className="p-1.5" onClick={(e) => e.stopPropagation()}>
                                   <button
                                     onClick={(e) => { e.stopPropagation(); handleEdit(client); setActiveMenuId(null); }}
-                                    className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-indigo-600 rounded-xl transition-colors group"
+                                    className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-navy-700 rounded-xl transition-colors group"
                                   >
-                                    <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-100 transition-colors">
+                                    <div className="p-1.5 bg-navy-50 text-navy-700 rounded-lg group-hover:bg-navy-100 transition-colors">
                                       <Pencil size={14} />
                                     </div>
                                     Editar
@@ -273,7 +273,7 @@ const Clients = () => {
                 <div key={client.id} className="p-4 bg-white hover:bg-slate-50 transition-colors active:bg-slate-100">
                   <div className="flex justify-between items-start mb-3">
                     <Link to={`/clients/${client.id}`} className="flex items-center flex-1">
-                      <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold mr-3 shadow-sm">
+                      <div className="h-10 w-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-700 font-bold mr-3 shadow-sm">
                         {client.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
@@ -293,7 +293,7 @@ const Clients = () => {
                     <div className="relative">
                       <button
                         onClick={(e) => toggleMenu(e, client.id)}
-                        className={`p-2 rounded-lg transition-all ${activeMenuId === client.id ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400'}`}
+                        className={`p-2 rounded-lg transition-all ${activeMenuId === client.id ? 'bg-navy-100 text-navy-700' : 'text-slate-400'}`}
                       >
                         <MoreVertical size={20} />
                       </button>
@@ -304,9 +304,9 @@ const Clients = () => {
                           <div className="p-1.5" onClick={(e) => e.stopPropagation()}>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleEdit(client); setActiveMenuId(null); }}
-                              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-indigo-600 rounded-xl transition-colors"
+                              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-navy-700 rounded-xl transition-colors"
                             >
-                              <Pencil size={16} className="text-indigo-500" />
+                              <Pencil size={16} className="text-navy-500" />
                               Editar
                             </button>
                             <button
@@ -382,13 +382,13 @@ const Clients = () => {
                     <label className="text-sm font-semibold text-slate-700 ml-1">Nome Completo / Razão Social</label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <User className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                        <User className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                       </div>
                       <input
                         required
                         type="text"
                         placeholder="Ex: João Silva ou Empresa LTDA"
-                        className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                        className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                         value={newClient.name}
                         onChange={e => setNewClient({ ...newClient, name: e.target.value })}
                       />
@@ -400,14 +400,14 @@ const Clients = () => {
                     <label className="text-sm font-semibold text-slate-700 ml-1">CPF / CNPJ</label>
                     <div className="relative group">
                       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FileText className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                        <FileText className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                       </div>
                       <input
                         required
                         type="text"
                         maxLength={18}
                         placeholder="000.000.000-00"
-                        className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                        className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                         value={newClient.document}
                         onChange={handleDocumentChange}
                       />
@@ -420,12 +420,12 @@ const Clients = () => {
                       <label className="text-sm font-semibold text-slate-700 ml-1">Telefone</label>
                       <div className="relative group">
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                          <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                          <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                         </div>
                         <input
                           type="tel"
                           placeholder="(00) 00000-0000"
-                          className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                          className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                           value={newClient.phone}
                           onChange={e => setNewClient({ ...newClient, phone: e.target.value })}
                         />
@@ -436,12 +436,12 @@ const Clients = () => {
                       <label className="text-sm font-semibold text-slate-700 ml-1">E-mail</label>
                       <div className="relative group">
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                          <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                          <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-navy-500 transition-colors" />
                         </div>
                         <input
                           type="email"
                           placeholder="cliente@email.com"
-                          className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200"
+                          className="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200"
                           value={newClient.email}
                           onChange={e => setNewClient({ ...newClient, email: e.target.value })}
                         />
@@ -456,12 +456,12 @@ const Clients = () => {
                       <textarea
                         rows={3}
                         placeholder="Informações adicionais sobre o cliente..."
-                        className="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white text-slate-900 transition-all duration-200 resize-none"
+                        className="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-500/20 focus:border-navy-500 focus:bg-white text-slate-900 transition-all duration-200 resize-none"
                         value={newClient.notes}
                         onChange={e => setNewClient({ ...newClient, notes: e.target.value })}
                       ></textarea>
                       <div className="absolute bottom-3 right-3 pointer-events-none">
-                        <MessageSquare className="h-4 w-4 text-slate-300 group-focus-within:text-indigo-300 transition-colors" />
+                        <MessageSquare className="h-4 w-4 text-slate-300 group-focus-within:text-navy-300 transition-colors" />
                       </div>
                     </div>
                   </div>
@@ -478,7 +478,7 @@ const Clients = () => {
                   </button>
                   <button
                     type="submit"
-                    className="px-8 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:from-indigo-500 hover:to-violet-500 transform hover:-translate-y-0.5 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="px-8 py-3 rounded-2xl bg-gradient-to-r from-navy-700 to-violet-600 text-white font-semibold shadow-lg shadow-navy-500/30 hover:shadow-navy-500/50 hover:from-navy-500 hover:to-violet-500 transform hover:-translate-y-0.5 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-navy-500"
                   >
                     {editingId ? 'Salvar Alterações' : 'Salvar Cliente'}
                   </button>

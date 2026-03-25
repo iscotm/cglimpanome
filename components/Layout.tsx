@@ -116,24 +116,25 @@ const Layout = () => {
   ];
 
   // Componente interno para item da sidebar para manter o código limpo
-  const SidebarItem = ({ to, icon: Icon, label }: { to: string, icon: any, label: string }) => (
+  const SidebarItem = ({ to, icon: Icon, label, ...rest }: { to: string, icon: any, label: string, [key: string]: any }) => (
     <NavLink
       to={to}
       onClick={() => setSidebarOpen(false)}
+      {...rest}
       className={({ isActive }) => `
         w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group mb-1
         ${isActive
-          ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-800'
+          ? 'bg-navy-50 text-navy-700 shadow-sm border border-navy-100 dark:bg-navy-900/40 dark:text-navy-300 dark:border-navy-800'
           : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 border border-transparent dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200'}
       `}
     >
       {({ isActive }) => (
         <>
           <div className="flex items-center gap-3">
-            <Icon size={20} className={isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'} />
+            <Icon size={20} className={isActive ? 'text-navy-600 dark:text-navy-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'} />
             <span className="font-medium text-[15px]">{label}</span>
           </div>
-          {isActive && <ChevronRight size={16} className="text-indigo-400 dark:text-indigo-500" />}
+          {isActive && <ChevronRight size={16} className="text-navy-400 dark:text-navy-500" />}
         </>
       )}
     </NavLink>
@@ -167,7 +168,7 @@ const Layout = () => {
         {/* Header / Logo */}
         <div className="p-8 pb-6 flex justify-between items-center lg:block">
           <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 bg-navy-700 rounded-xl flex items-center justify-center shadow-lg shadow-navy-200 dark:shadow-none group-hover:scale-110 transition-transform">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -200,7 +201,7 @@ const Layout = () => {
           </div>
           <nav className="space-y-1">
             {navItems.map((item) => (
-              <SidebarItem key={item.to} {...item} />
+              <SidebarItem key={item.to} to={item.to} icon={item.icon} label={item.label} />
             ))}
           </nav>
 
@@ -216,17 +217,17 @@ const Layout = () => {
               className={({ isActive }) => `
                 w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group
                 ${isActive
-                  ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-800'
+                  ? 'bg-navy-50 text-navy-700 shadow-sm border border-navy-100 dark:bg-navy-900/40 dark:text-navy-300 dark:border-navy-800'
                   : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 border border-transparent dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200'}
               `}
             >
               {({ isActive }) => (
                 <>
                   <div className="flex items-center gap-3">
-                    <Trophy size={20} className={isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'} />
+                    <Trophy size={20} className={isActive ? 'text-navy-600 dark:text-navy-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'} />
                     <span className="font-medium text-[15px]">Prova Social</span>
                   </div>
-                  {isActive && <ChevronRight size={16} className="text-indigo-400 dark:text-indigo-500" />}
+                  {isActive && <ChevronRight size={16} className="text-navy-400 dark:text-navy-500" />}
                 </>
               )}
             </NavLink>
@@ -236,17 +237,17 @@ const Layout = () => {
               className={({ isActive }) => `
                 w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group
                 ${isActive
-                  ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-800'
+                  ? 'bg-navy-50 text-navy-700 shadow-sm border border-navy-100 dark:bg-navy-900/40 dark:text-navy-300 dark:border-navy-800'
                   : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900 border border-transparent dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200'}
               `}
             >
               {({ isActive }) => (
                 <>
                   <div className="flex items-center gap-3">
-                    <Settings size={20} className={isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'} />
+                    <Settings size={20} className={isActive ? 'text-navy-600 dark:text-navy-400' : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'} />
                     <span className="font-medium text-[15px]">Configurações</span>
                   </div>
-                  {isActive && <ChevronRight size={16} className="text-indigo-400 dark:text-indigo-500" />}
+                  {isActive && <ChevronRight size={16} className="text-navy-400 dark:text-navy-500" />}
                 </>
               )}
             </NavLink>
@@ -256,7 +257,7 @@ const Layout = () => {
         {/* User Footer */}
         <div className="p-4 bg-slate-50/50 dark:bg-slate-800/50 border-t border-slate-50 dark:border-slate-800">
           <div className="flex items-center gap-3 p-2 rounded-2xl hover:bg-white dark:hover:bg-slate-800 transition-colors cursor-pointer border border-transparent hover:border-slate-100 dark:hover:border-slate-700 group">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-navy-500 to-navy-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform">
               {userProfile.name.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
@@ -294,8 +295,8 @@ const Layout = () => {
                 : 'w-full max-w-lg'
                 }`}
             >
-              <div className={`relative flex items-center bg-slate-50 dark:bg-slate-800 rounded-2xl border-2 transition-all ${isSearchFocused ? 'border-indigo-500 bg-white dark:bg-slate-900 shadow-2xl shadow-indigo-200/50 dark:shadow-none' : 'border-transparent'}`}>
-                <Search className={`absolute left-4 transition-colors ${isSearchFocused ? 'text-indigo-500' : 'text-slate-400'}`} size={20} />
+              <div className={`relative flex items-center bg-slate-50 dark:bg-slate-800 rounded-2xl border-2 transition-all ${isSearchFocused ? 'border-navy-500 bg-white dark:bg-slate-900 shadow-2xl shadow-navy-200/50 dark:shadow-none' : 'border-transparent'}`}>
+                <Search className={`absolute left-4 transition-colors ${isSearchFocused ? 'text-navy-500' : 'text-slate-400'}`} size={20} />
                 <input
                   type="text"
                   value={searchTerm}
@@ -322,14 +323,14 @@ const Layout = () => {
                           <button
                             key={client.id}
                             onClick={() => handleSelectClient(client.id)}
-                            className="w-full flex items-center justify-between p-3 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30 rounded-xl transition-colors group border border-transparent hover:border-indigo-100 dark:hover:border-indigo-800"
+                            className="w-full flex items-center justify-between p-3 hover:bg-navy-50/50 dark:hover:bg-navy-900/30 rounded-xl transition-colors group border border-transparent hover:border-navy-100 dark:hover:border-navy-800"
                           >
                             <div className="flex items-center gap-4">
-                              <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300 shadow-sm">
+                              <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-navy-100 text-navy-700 dark:bg-navy-900 dark:text-navy-300 shadow-sm">
                                 {client.name.charAt(0).toUpperCase()}
                               </div>
                               <div className="text-left">
-                                <p className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-sm">{client.name}</p>
+                                <p className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-navy-700 dark:group-hover:text-navy-400 transition-colors text-sm">{client.name}</p>
                                 <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                                   <span className="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700"><FileText size={10} /> {client.document}</span>
                                   <span className="flex items-center gap-1"><Phone size={10} /> {client.phone}</span>
@@ -342,7 +343,7 @@ const Layout = () => {
                                     contracts
                                       .filter(con => con.clientId === client.id && con.id.toLowerCase().includes(searchTerm.toLowerCase().replace('#', '')))
                                       .map(con => (
-                                        <span key={con.id} className="flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded border border-indigo-100 dark:border-indigo-800 animate-in fade-in zoom-in-95 duration-300">
+                                        <span key={con.id} className="flex items-center gap-1 bg-navy-50 dark:bg-navy-900/30 text-navy-700 dark:text-navy-400 px-1.5 py-0.5 rounded border border-navy-100 dark:border-navy-800 animate-in fade-in zoom-in-95 duration-300">
                                           <Ticket size={10} /> #{con.id.slice(0, 8)}
                                         </span>
                                       ))
@@ -350,7 +351,7 @@ const Layout = () => {
                                 </div>
                               </div>
                             </div>
-                            <ChevronRight size={16} className="text-slate-300 group-hover:text-indigo-400" />
+                            <ChevronRight size={16} className="text-slate-300 group-hover:text-navy-400" />
                           </button>
                         );
                       })
@@ -365,7 +366,7 @@ const Layout = () => {
                   </div>
                   <div className="bg-slate-50 dark:bg-slate-800 px-4 py-2 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center">
                     <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Busca Global</span>
-                    <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">{searchResults.length} resultados</span>
+                    <span className="text-[10px] font-bold text-navy-700 dark:text-navy-400">{searchResults.length} resultados</span>
                   </div>
                 </div>
               )}
@@ -374,7 +375,7 @@ const Layout = () => {
 
           <div className="flex items-center ml-4 gap-4">
             {/* User Avatar no Header (Mobile Only ou Simplificado Desktop) */}
-            <div className="lg:hidden w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs shadow-sm">
+            <div className="lg:hidden w-8 h-8 rounded-full bg-gradient-to-tr from-navy-500 to-navy-700 flex items-center justify-center text-white font-bold text-xs shadow-sm">
               {userProfile.name.charAt(0).toUpperCase()}
             </div>
           </div>

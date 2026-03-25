@@ -51,10 +51,10 @@ const ClientDetails = () => {
 
       {/* Header Card */}
       <div className="bg-white shadow-sm border border-slate-200 rounded-[2.5rem] p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl -mr-16 -mt-16 opacity-50"></div>
+        <div className="absolute top-0 right-0 w-32 h-32 bg-navy-50 rounded-full blur-3xl -mr-16 -mt-16 opacity-50"></div>
         <div className="relative flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-md">
+            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-navy-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-md">
               {client.name.charAt(0).toUpperCase()}
             </div>
             <div>
@@ -80,7 +80,7 @@ const ClientDetails = () => {
 
           <button
             onClick={() => setContractModalOpen(true)}
-            className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all hover:scale-105 active:scale-95 shrink-0"
+            className="inline-flex items-center justify-center px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white text-sm font-bold rounded-2xl shadow-lg shadow-navy-200 transition-all hover:scale-105 active:scale-95 shrink-0"
           >
             <Plus className="h-5 w-5 mr-2" />
             Novo Contrato
@@ -91,14 +91,14 @@ const ClientDetails = () => {
       {/* Contracts Grid */}
       <div>
         <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center">
-          <FileText className="h-5 w-5 mr-2 text-indigo-500" />
+          <FileText className="h-5 w-5 mr-2 text-navy-500" />
           Contratos ({clientContracts.length})
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {clientContracts.map(contract => (
             <div key={contract.id} className="relative group/card">
               <Link to={`/contracts/${contract.id}`} className="block h-full">
-                <div className="bg-white rounded-[2rem] border border-slate-200 p-6 hover:border-indigo-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 h-full flex flex-col">
+                <div className="bg-white rounded-[2rem] border border-slate-200 p-6 hover:border-navy-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 h-full flex flex-col">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center text-slate-500 text-xs font-medium">
                       <Calendar className="h-3.5 w-3.5 mr-1.5" />
@@ -138,7 +138,7 @@ const ClientDetails = () => {
                   setEditTotalValue(contract.totalValue.toString());
                   setEditValueModalOpen(true);
                 }}
-                className="absolute top-4 right-20 p-2 bg-white border border-slate-200 text-slate-400 hover:text-indigo-600 hover:border-indigo-300 rounded-xl shadow-sm opacity-0 group-hover/card:opacity-100 transition-all z-10"
+                className="absolute top-4 right-20 p-2 bg-white border border-slate-200 text-slate-400 hover:text-navy-700 hover:border-navy-300 rounded-xl shadow-sm opacity-0 group-hover/card:opacity-100 transition-all z-10"
                 title="Editar Valor"
               >
                 <Edit2 size={14} />
@@ -150,7 +150,7 @@ const ClientDetails = () => {
             <div className="col-span-full bg-slate-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-500">
               <FileText className="h-10 w-10 mb-3 opacity-30" />
               <p className="font-medium">Nenhum contrato cadastrado.</p>
-              <button onClick={() => setContractModalOpen(true)} className="mt-2 text-sm text-indigo-600 hover:underline">
+              <button onClick={() => setContractModalOpen(true)} className="mt-2 text-sm text-navy-700 hover:underline">
                 Clique para criar o primeiro
               </button>
             </div>
@@ -171,7 +171,7 @@ const ClientDetails = () => {
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <span className="text-slate-500 sm:text-lg font-bold">R$</span>
                   </div>
-                  <input type="number" step="0.01" required className="pl-12 block w-full border-slate-300 rounded-2xl focus:ring-indigo-500 focus:border-indigo-500 py-4 text-lg font-bold text-slate-900 bg-slate-50"
+                  <input type="number" step="0.01" required className="pl-12 block w-full border-slate-300 rounded-2xl focus:ring-navy-500 focus:border-navy-500 py-4 text-lg font-bold text-slate-900 bg-slate-50"
                     value={newContract.totalValue} onChange={e => setNewContract({ ...newContract, totalValue: Number(e.target.value) })} />
                 </div>
               </div>
@@ -182,25 +182,25 @@ const ClientDetails = () => {
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <span className="text-slate-500 sm:text-sm">R$</span>
                     </div>
-                    <input type="number" step="0.01" className="pl-10 block w-full border-slate-300 rounded-2xl focus:ring-indigo-500 focus:border-indigo-500 py-3 text-slate-900 bg-slate-50"
+                    <input type="number" step="0.01" className="pl-10 block w-full border-slate-300 rounded-2xl focus:ring-navy-500 focus:border-navy-500 py-3 text-slate-900 bg-slate-50"
                       value={newContract.downPayment} onChange={e => setNewContract({ ...newContract, downPayment: Number(e.target.value) })} />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Parcelas</label>
-                  <input type="number" min="1" max="24" className="block w-full border-slate-300 rounded-2xl focus:ring-indigo-500 focus:border-indigo-500 py-3 shadow-sm text-slate-900 bg-slate-50"
+                  <input type="number" min="1" max="24" className="block w-full border-slate-300 rounded-2xl focus:ring-navy-500 focus:border-navy-500 py-3 shadow-sm text-slate-900 bg-slate-50"
                     value={newContract.installments} onChange={e => setNewContract({ ...newContract, installments: Number(e.target.value) })} />
                 </div>
               </div>
 
-              <div className="bg-indigo-50 rounded-2xl p-4 text-sm text-indigo-800 border border-indigo-100">
+              <div className="bg-navy-50 rounded-2xl p-4 text-sm text-navy-900 border border-navy-100">
                 <p className="flex justify-between"><span>Valor Parcelado:</span> <span>{formatCurrency(newContract.totalValue - newContract.downPayment)}</span></p>
                 <p className="flex justify-between font-bold mt-1"><span>Valor da Parcela:</span> <span>{formatCurrency((newContract.totalValue - newContract.downPayment) / (newContract.installments || 1))}</span></p>
               </div>
 
               <div className="flex justify-end space-x-3 pt-4">
                 <button type="button" onClick={() => setContractModalOpen(false)} className="px-6 py-3 border border-slate-300 rounded-2xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">Cancelar</button>
-                <button type="submit" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-sm font-bold shadow-md shadow-indigo-200 transition-colors">Criar Contrato</button>
+                <button type="submit" className="px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl text-sm font-bold shadow-md shadow-navy-200 transition-colors">Criar Contrato</button>
               </div>
             </form>
           </div>
@@ -211,7 +211,7 @@ const ClientDetails = () => {
       {isEditValueModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => { setEditValueModalOpen(false); setEditingContract(null); }}></div>
-          <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 relative z-10 border-t-4 border-indigo-500">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 relative z-10 border-t-4 border-navy-500">
             <h3 className="text-2xl font-bold text-slate-900 mb-2">Editar Valor Total</h3>
             <p className="text-sm text-slate-500 mb-6">Altere o valor principal do contrato.</p>
             <form onSubmit={handleUpdateValue} className="space-y-5">
@@ -223,7 +223,7 @@ const ClientDetails = () => {
                     type="number"
                     step="0.01"
                     required
-                    className="pl-11 block w-full border-slate-300 rounded-2xl focus:ring-indigo-500 focus:border-indigo-500 py-3 shadow-sm text-slate-900 font-bold text-lg bg-slate-50"
+                    className="pl-11 block w-full border-slate-300 rounded-2xl focus:ring-navy-500 focus:border-navy-500 py-3 shadow-sm text-slate-900 font-bold text-lg bg-slate-50"
                     value={editTotalValue}
                     onChange={e => setEditTotalValue(e.target.value)}
                     autoFocus
@@ -232,7 +232,7 @@ const ClientDetails = () => {
               </div>
               <div className="flex justify-end gap-3 pt-4">
                 <button type="button" onClick={() => { setEditValueModalOpen(false); setEditingContract(null); }} className="px-6 py-3 border border-slate-300 rounded-2xl text-slate-700 font-medium hover:bg-slate-50">Cancelar</button>
-                <button type="submit" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-md shadow-indigo-200">Salvar</button>
+                <button type="submit" className="px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl font-bold shadow-md shadow-navy-200">Salvar</button>
               </div>
             </form>
           </div>

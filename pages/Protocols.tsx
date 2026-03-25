@@ -115,7 +115,7 @@ const Protocols = () => {
         {/* Gradiente de topo */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-300 via-teal-400 to-sky-400" />
 
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/5 rounded-full blur-[100px]" />
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-navy-500/5 rounded-full blur-[100px]" />
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-500/5 rounded-full blur-[100px]" />
 
         <div className="relative mb-8 p-8 bg-emerald-50 rounded-[2.5rem] shadow-inner">

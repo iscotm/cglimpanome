@@ -132,7 +132,7 @@ const ContractDetails = () => {
                     <p className="text-lg sm:text-2xl font-bold text-slate-900 mt-1">{formatCurrency(contract.totalValue)}</p>
                     <button
                       onClick={() => { setNewTotalValue(contract.totalValue.toString()); setEditValueModalOpen(true); }}
-                      className="mt-1 p-1 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all opacity-0 group-hover/value:opacity-100"
+                      className="mt-1 p-1 text-slate-400 hover:text-navy-700 hover:bg-navy-50 rounded-lg transition-all opacity-0 group-hover/value:opacity-100"
                     >
                       <Edit2 size={16} />
                     </button>
@@ -154,7 +154,7 @@ const ContractDetails = () => {
                   <span>{balance.percentage.toFixed(1)}%</span>
                 </div>
                 <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                  <div className={`bg-indigo-600 h-3 rounded-full transition-all duration-1000 ease-out relative`} style={{ width: `${Math.min(balance.percentage, 100)}%` }}>
+                  <div className={`bg-navy-700 h-3 rounded-full transition-all duration-1000 ease-out relative`} style={{ width: `${Math.min(balance.percentage, 100)}%` }}>
                     <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
                   </div>
                 </div>
@@ -178,11 +178,11 @@ const ContractDetails = () => {
           <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 flex flex-col h-[500px] overflow-hidden">
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <h3 className="text-lg font-bold text-slate-900 flex items-center">
-                <Wallet className="h-5 w-5 mr-2 text-indigo-500" /> Financeiro
+                <Wallet className="h-5 w-5 mr-2 text-navy-500" /> Financeiro
               </h3>
               <button
                 onClick={() => setPaymentModalOpen(true)}
-                className="text-sm bg-white border border-slate-200 hover:border-indigo-300 text-indigo-600 hover:text-indigo-700 font-bold px-4 py-2 rounded-xl shadow-sm transition-all"
+                className="text-sm bg-white border border-slate-200 hover:border-navy-300 text-navy-700 hover:text-navy-800 font-bold px-4 py-2 rounded-xl shadow-sm transition-all"
               >
                 + Registrar Pagamento
               </button>
@@ -215,7 +215,7 @@ const ContractDetails = () => {
                       <div className="relative">
                         <button
                           onClick={(e) => toggleMenu(e, p.id)}
-                          className={`p-2 rounded-lg transition-all ${activeMenuId === p.id ? 'bg-indigo-100 text-indigo-600' : 'text-slate-300 hover:text-indigo-600 hover:bg-slate-50'}`}
+                          className={`p-2 rounded-lg transition-all ${activeMenuId === p.id ? 'bg-navy-100 text-navy-700' : 'text-slate-300 hover:text-navy-700 hover:bg-slate-50'}`}
                         >
                           <MoreVertical size={16} />
                         </button>
@@ -250,7 +250,7 @@ const ContractDetails = () => {
           <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 h-full max-h-[800px] flex flex-col overflow-hidden">
             <div className="px-8 py-6 border-b border-slate-100 bg-slate-50/50">
               <h3 className="text-lg font-bold text-slate-900 flex items-center">
-                <History className="h-5 w-5 mr-2 text-indigo-500" /> Linha do Tempo
+                <History className="h-5 w-5 mr-2 text-navy-500" /> Linha do Tempo
               </h3>
             </div>
             <div className="p-8 flex-1 overflow-y-auto custom-scrollbar">
@@ -260,9 +260,9 @@ const ContractDetails = () => {
                     {/* Dot */}
                     <span className={`absolute -left-[9px] top-1 h-5 w-5 rounded-full border-2 border-white shadow-sm flex items-center justify-center
                       ${event.type === 'payment' ? 'bg-emerald-500' :
-                        event.type === 'status_change' ? 'bg-blue-500' :
+                        event.type === 'status_change' ? 'bg-navy-500' :
                           event.type === 'returned' ? 'bg-red-500' :
-                            event.type === 'list_completed' ? 'bg-indigo-600' : 'bg-slate-400'}`}>
+                            event.type === 'list_completed' ? 'bg-navy-700' : 'bg-slate-400'}`}>
                     </span>
 
                     {/* Content */}
@@ -345,7 +345,7 @@ const ContractDetails = () => {
       {isEditValueModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setEditValueModalOpen(false)}></div>
-          <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 relative z-10 border-t-4 border-indigo-500">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-sm p-8 relative z-10 border-t-4 border-navy-500">
             <h3 className="text-2xl font-bold text-slate-900 mb-2">Editar Valor Total</h3>
             <p className="text-sm text-slate-500 mb-6">Altere o valor principal do contrato. O progresso de pagamento será recalculado.</p>
             <form onSubmit={handleUpdateValue} className="space-y-5">
@@ -357,7 +357,7 @@ const ContractDetails = () => {
                     type="number"
                     step="0.01"
                     required
-                    className="pl-11 block w-full border-slate-300 rounded-2xl focus:ring-indigo-500 focus:border-indigo-500 py-3 shadow-sm text-slate-900 font-bold text-lg bg-slate-50"
+                    className="pl-11 block w-full border-slate-300 rounded-2xl focus:ring-navy-500 focus:border-navy-500 py-3 shadow-sm text-slate-900 font-bold text-lg bg-slate-50"
                     value={newTotalValue}
                     onChange={e => setNewTotalValue(e.target.value)}
                     autoFocus
@@ -366,7 +366,7 @@ const ContractDetails = () => {
               </div>
               <div className="flex justify-end gap-3 pt-4">
                 <button type="button" onClick={() => setEditValueModalOpen(false)} className="px-6 py-3 border border-slate-300 rounded-2xl text-slate-700 font-medium hover:bg-slate-50">Cancelar</button>
-                <button type="submit" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-md shadow-indigo-200">Salvar Alteração</button>
+                <button type="submit" className="px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl font-bold shadow-md shadow-navy-200">Salvar Alteração</button>
               </div>
             </form>
           </div>

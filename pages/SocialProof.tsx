@@ -83,7 +83,7 @@ const SocialProof = () => {
                                 type="text"
                                 value={listName}
                                 onChange={(e) => setListName(e.target.value)}
-                                className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                                className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-navy-500 outline-none transition-all"
                                 placeholder="Ex: Lote Pagamento Antecipado"
                             />
                         </div>
@@ -94,7 +94,7 @@ const SocialProof = () => {
                                 type="number"
                                 value={totalCount}
                                 onChange={(e) => setTotalCount(e.target.value)}
-                                className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                                className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-navy-500 outline-none transition-all"
                                 placeholder="Ex: 150"
                             />
                         </div>
@@ -105,14 +105,14 @@ const SocialProof = () => {
                             <textarea
                                 value={rawNames}
                                 onChange={(e) => setRawNames(e.target.value)}
-                                className="w-full h-40 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-mono text-sm"
+                                className="w-full h-40 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-navy-500 outline-none transition-all font-mono text-sm"
                                 placeholder="João Silva, 123.456.789-00&#10;Maria Santos, 987.654.321-11"
                             />
                         </div>
 
                         <button
                             onClick={handleStart}
-                            className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-indigo-200 dark:shadow-none transition-all flex items-center justify-center gap-2"
+                            className="w-full py-4 bg-navy-700 hover:bg-navy-800 text-white rounded-xl font-bold text-lg shadow-lg shadow-navy-200 dark:shadow-none transition-all flex items-center justify-center gap-2"
                         >
                             <Play size={20} fill="currentColor" />
                             Iniciar Simulação
@@ -171,16 +171,16 @@ const SocialProof = () => {
                         <>
                             {/* Dark animated background */}
                             <div className="fixed inset-0 bg-gradient-animated z-[-1]" />
-                            <div className="fixed top-[-10%] left-[-10%] w-96 h-96 bg-indigo-500 rounded-full blur-[80px] opacity-40 z-[-1]" />
+                            <div className="fixed top-[-10%] left-[-10%] w-96 h-96 bg-navy-500 rounded-full blur-[80px] opacity-40 z-[-1]" />
                             <div className="fixed bottom-[-10%] right-[-10%] w-80 h-80 bg-purple-500 rounded-full blur-[80px] opacity-40 z-[-1]" />
 
                             <div className="max-w-md w-full text-center space-y-8 floating">
                                 {/* Header */}
                                 <div className="space-y-2">
-                                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-purple-200">
+                                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-navy-200 to-purple-200">
                                         Processando Lista...
                                     </h1>
-                                    <p className="text-indigo-300 text-sm font-medium tracking-widest uppercase opacity-80">
+                                    <p className="text-navy-300 text-sm font-medium tracking-widest uppercase opacity-80">
                                         {listName}
                                     </p>
                                 </div>
@@ -194,7 +194,7 @@ const SocialProof = () => {
                                         />
                                     </div>
                                     <div className="flex justify-end">
-                                        <span className="text-sm font-mono text-indigo-200">{Math.round(progress)}%</span>
+                                        <span className="text-sm font-mono text-navy-200">{Math.round(progress)}%</span>
                                     </div>
                                 </div>
 
@@ -202,7 +202,7 @@ const SocialProof = () => {
                                 <div className="glass-card rounded-2xl p-6 transition-all duration-500 transform hover:scale-[1.02]">
                                     {currentName ? (
                                         <div className="flex flex-col items-center space-y-3">
-                                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center mb-1">
+                                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-navy-500 to-purple-500 flex items-center justify-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                                 </svg>
@@ -211,26 +211,26 @@ const SocialProof = () => {
                                                 <span className="text-white">{currentName.name.split(' ')[0]}</span>
                                                 <span className="text-white privacy-blur">{currentName.name.split(' ').slice(1).join(' ')}</span>
                                             </div>
-                                            <p className="text-indigo-200/60 text-sm font-mono tracking-wider privacy-blur">{currentName.doc}</p>
+                                            <p className="text-navy-200/60 text-sm font-mono tracking-wider privacy-blur">{currentName.doc}</p>
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-center space-y-3">
-                                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center mb-1">
+                                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-navy-500 to-purple-500 flex items-center justify-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                                 </svg>
                                             </div>
                                             <div className="flex gap-1 mt-2">
-                                                <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '-0.3s' }}></span>
-                                                <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '-0.15s' }}></span>
-                                                <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"></span>
+                                                <span className="w-2 h-2 bg-navy-400 rounded-full animate-bounce" style={{ animationDelay: '-0.3s' }}></span>
+                                                <span className="w-2 h-2 bg-navy-400 rounded-full animate-bounce" style={{ animationDelay: '-0.15s' }}></span>
+                                                <span className="w-2 h-2 bg-navy-400 rounded-full animate-bounce"></span>
                                             </div>
                                         </div>
                                     )}
                                 </div>
 
                                 {/* Status Text */}
-                                <p className="text-xs text-indigo-300/40 italic">
+                                <p className="text-xs text-navy-300/40 italic">
                                     Criptografando dados sensíveis para sua segurança...
                                 </p>
                             </div>
@@ -242,7 +242,7 @@ const SocialProof = () => {
                             {/* Light background for completed */}
                             <div className="fixed inset-0 bg-[#f8fafc] z-[-1]" />
                             <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
-                                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100 rounded-full blur-[120px] opacity-60"></div>
+                                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-navy-100 rounded-full blur-[120px] opacity-60"></div>
                                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-100 rounded-full blur-[120px] opacity-60"></div>
                             </div>
 
@@ -266,12 +266,12 @@ const SocialProof = () => {
                                 </div>
 
                                 {/* Card do Resultado */}
-                                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100/50 rounded-3xl p-6 mb-10 shadow-sm group hover:shadow-md transition-shadow overflow-hidden">
-                                    <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-[0.2em] mb-3 block">
+                                <div className="bg-gradient-to-br from-navy-50 to-navy-50 border border-navy-100/50 rounded-3xl p-6 mb-10 shadow-sm group hover:shadow-md transition-shadow overflow-hidden">
+                                    <span className="text-[10px] font-bold text-navy-400 uppercase tracking-[0.2em] mb-3 block">
                                         LISTA ENVIADA COM SUCESSO
                                     </span>
 
-                                    <h2 className="text-2xl font-bold text-indigo-700 mb-4">
+                                    <h2 className="text-2xl font-bold text-navy-800 mb-4">
                                         {listName}
                                     </h2>
 
@@ -279,21 +279,21 @@ const SocialProof = () => {
                                     <div className="relative h-20 mb-6 overflow-hidden mask-fade">
                                         <div className="flex flex-col items-center gap-1 blur-[6px] opacity-30 select-none pointer-events-none transform scale-105">
                                             {getParsedData().map((item, i) => (
-                                                <div key={i} className="text-sm font-medium text-indigo-900 tracking-tight">
+                                                <div key={i} className="text-sm font-medium text-navy-950 tracking-tight">
                                                     {item.name} - {item.doc}
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/20 via-transparent to-indigo-50/80"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-b from-navy-50/20 via-transparent to-navy-50/80"></div>
                                     </div>
 
                                     {/* Ações de Download/Partilha */}
                                     <div className="flex justify-center gap-3">
-                                        <button className="flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl text-indigo-600 font-semibold shadow-sm hover:bg-indigo-600 hover:text-white transition-all border border-indigo-50">
+                                        <button className="flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl text-navy-700 font-semibold shadow-sm hover:bg-navy-700 hover:text-white transition-all border border-navy-50">
                                             <Download size={18} />
                                             <span className="text-xs">Baixar</span>
                                         </button>
-                                        <button className="p-2.5 bg-white rounded-xl text-indigo-600 shadow-sm hover:bg-indigo-600 hover:text-white transition-all border border-indigo-50">
+                                        <button className="p-2.5 bg-white rounded-xl text-navy-700 shadow-sm hover:bg-navy-700 hover:text-white transition-all border border-navy-50">
                                             <Share2 size={18} />
                                         </button>
                                     </div>

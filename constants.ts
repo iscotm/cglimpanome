@@ -9,9 +9,9 @@ export const STATUS_LABELS: Record<string, string> = {
 
 export const STATUS_COLORS: Record<string, string> = {
   draft: 'bg-gray-100 text-gray-800',
-  in_progress: 'bg-blue-100 text-blue-800',
+  in_progress: 'bg-navy-100 text-navy-800',
   eligible: 'bg-green-100 text-green-800 border-green-200',
-  in_list: 'bg-purple-100 text-purple-800',
+  in_list: 'bg-navy-50 text-navy-500',
   completed: 'bg-slate-800 text-white',
   returned: 'bg-red-100 text-red-800',
 };
