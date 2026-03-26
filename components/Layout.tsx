@@ -168,20 +168,8 @@ const Layout = () => {
         {/* Header / Logo */}
         <div className="p-8 pb-6 flex justify-between items-center lg:block">
           <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-10 h-10 bg-navy-700 rounded-xl flex items-center justify-center shadow-lg shadow-navy-200 dark:shadow-none group-hover:scale-110 transition-transform">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2.5"
-                className="w-6 h-6"
-              >
-                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <line x1="10" y1="9" x2="8" y2="9" />
-              </svg>
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-100 group-hover:scale-110 transition-transform overflow-hidden">
+              <img src="/logo.png" alt="Logo GC" className="w-8 h-8 object-contain" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-slate-800 dark:text-white leading-tight">

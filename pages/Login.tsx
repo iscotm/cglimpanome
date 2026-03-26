@@ -38,20 +38,8 @@ const Login = () => {
         {/* Header Visual */}
         <div className="bg-navy-700 p-10 flex flex-col items-center justify-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-          <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center shadow-lg mb-6 relative z-10">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-              className="w-10 h-10"
-            >
-              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-              <line x1="10" y1="9" x2="8" y2="9" />
-            </svg>
+          <div className="w-24 h-24 bg-white rounded-[2rem] flex items-center justify-center shadow-xl mb-6 relative z-10 overflow-hidden border-4 border-white/20">
+            <img src="/logo.png" alt="Logo GC" className="w-20 h-20 object-contain" />
           </div>
           <h1 className="text-3xl font-bold text-white relative z-10">GC Limpa Nome</h1>
           <p className="text-navy-200 mt-2 text-sm font-medium relative z-10">CRM Operacional e Financeiro</p>
