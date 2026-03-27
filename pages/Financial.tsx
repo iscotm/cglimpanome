@@ -203,7 +203,7 @@ const Financial = () => {
   ];
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto">
+    <div className="w-full max-w-[1400px] mx-auto">
       <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight">Financeiro</h1>

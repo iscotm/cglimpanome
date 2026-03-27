@@ -167,14 +167,18 @@ const Layout = () => {
       >
         {/* Header / Logo */}
         <div className="p-8 pb-6 flex justify-between items-center lg:block">
-          <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-100 group-hover:scale-110 transition-transform overflow-hidden">
-              <img src="/logo.png" alt="Logo GC" className="w-8 h-8 object-contain" />
+          <div className="flex items-center gap-4 group cursor-pointer">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-tr from-navy-400 to-navy-700 rounded-2xl opacity-20 group-hover:opacity-40 blur-sm transition-opacity duration-500"></div>
+              <div className="relative w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg logo-glow overflow-hidden border border-slate-100">
+                <img src="/logo.png" alt="Logo GC" className="w-10 h-10 object-contain" />
+              </div>
             </div>
             <div>
               <h1 className="text-xl font-bold text-slate-800 dark:text-white leading-tight">
                 GC <span className="font-light text-slate-500 dark:text-slate-400">Limpa Nome</span>
               </h1>
+              <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mt-0.5">CRM Operacional</p>
             </div>
           </div>
           <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-slate-400 hover:text-slate-600">
@@ -267,11 +271,20 @@ const Layout = () => {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative rounded-[2.5rem] bg-white dark:bg-slate-900 lg:shadow-sm lg:border lg:border-slate-200 dark:lg:border-slate-800">
 
         {/* Topbar com Busca Centralizada */}
+        {/* Gradient accent bar */}
+        <div className="h-0.5 bg-gradient-to-r from-navy-500 via-navy-400 to-navy-600 animate-gradient opacity-60"></div>
+
         <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 h-20 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-40">
-          <div className="flex items-center lg:hidden mr-4">
-            <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 text-slate-500 hover:bg-slate-100 rounded-lg">
-              <Menu size={24} />
-            </button>
+          <div className="flex items-center gap-4">
+            <div className="lg:hidden">
+              <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 text-slate-500 hover:bg-slate-100 rounded-lg">
+                <Menu size={24} />
+              </button>
+            </div>
+            <div className="hidden lg:block">
+              <p className="text-sm font-semibold text-slate-800 dark:text-white">Olá, <span className="gradient-text">{userProfile.name.split(' ')[0]}</span> 👋</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500">Bem-vindo de volta ao sistema</p>
+            </div>
           </div>
 
           {/* Área de Busca */}

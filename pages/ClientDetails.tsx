@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { formatCurrency, STATUS_LABELS, STATUS_COLORS, formatDate } from '../constants';
-import { Plus, ArrowLeft, Phone, Mail, FileText, Calendar, Edit2 } from 'lucide-react';
+import { Plus, ArrowLeft, Phone, Mail, FileText, Calendar, Edit2, ShieldCheck, CheckCircle2, X, Copy, Fingerprint, ArrowRight, User } from 'lucide-react';
 
 const ClientDetails = () => {
   const { clientId } = useParams<{ clientId: string }>();
@@ -12,6 +12,12 @@ const ClientDetails = () => {
   const [newContract, setNewContract] = useState({ totalValue: 0, downPayment: 0, installments: 1 });
   const [editingContract, setEditingContract] = useState<{ id: string, totalValue: number } | null>(null);
   const [editTotalValue, setEditTotalValue] = useState('');
+
+  // Protocol state
+  const [showProtocolSuccess, setShowProtocolSuccess] = useState(false);
+  const [isProtocolLoading, setIsProtocolLoading] = useState(false);
+  const [isProtocolClosing, setIsProtocolClosing] = useState(false);
+  const [protocolInfo, setProtocolInfo] = useState({ date: '', id: '' });
 
   const client = clients.find(c => c.id === clientId);
   const clientContracts = contracts.filter(c => c.clientId === clientId);
@@ -38,6 +44,29 @@ const ClientDetails = () => {
     await updateContract(editingContract.id, { totalValue: Number(editTotalValue) });
     setEditValueModalOpen(false);
     setEditingContract(null);
+  };
+
+  const handleGenerateProtocol = () => {
+    setIsProtocolLoading(true);
+    setTimeout(() => {
+      const agora = new Date();
+      const dataFormatada = agora.toLocaleDateString('pt-BR');
+      const horaFormatada = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      setProtocolInfo({
+        date: `${dataFormatada} às ${horaFormatada}`,
+        id: Math.floor(Math.random() * 999999).toString().padStart(6, '0')
+      });
+      setIsProtocolLoading(false);
+      setShowProtocolSuccess(true);
+    }, 1200);
+  };
+
+  const handleCloseProtocol = () => {
+    setIsProtocolClosing(true);
+    setTimeout(() => {
+      setShowProtocolSuccess(false);
+      setIsProtocolClosing(false);
+    }, 700);
   };
 
   return (
@@ -78,13 +107,27 @@ const ClientDetails = () => {
             </div>
           </div>
 
-          <button
-            onClick={() => setContractModalOpen(true)}
-            className="inline-flex items-center justify-center px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white text-sm font-bold rounded-2xl shadow-lg shadow-navy-200 transition-all hover:scale-105 active:scale-95 shrink-0"
-          >
-            <Plus className="h-5 w-5 mr-2" />
-            Novo Contrato
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+            <button
+              onClick={() => setContractModalOpen(true)}
+              className="inline-flex items-center justify-center px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white text-sm font-bold rounded-2xl shadow-lg shadow-navy-200 transition-all hover:scale-105 active:scale-95"
+            >
+              <Plus className="h-5 w-5 mr-2" />
+              Novo Contrato
+            </button>
+            <button
+              onClick={handleGenerateProtocol}
+              disabled={isProtocolLoading}
+              className="inline-flex items-center justify-center px-6 py-3 bg-sky-50 hover:bg-sky-100 text-sky-700 text-sm font-bold rounded-2xl border border-sky-200 transition-all hover:scale-105 active:scale-95"
+            >
+              {isProtocolLoading ? (
+                <div className="w-5 h-5 border-2 border-sky-300 border-t-sky-700 rounded-full animate-spin mr-2" />
+              ) : (
+                <FileText className="h-5 w-5 mr-2" />
+              )}
+              Gerar Protocolo
+            </button>
+          </div>
         </div>
       </div>
 
@@ -235,6 +278,124 @@ const ClientDetails = () => {
                 <button type="submit" className="px-6 py-3 bg-navy-700 hover:bg-navy-800 text-white rounded-2xl font-bold shadow-md shadow-navy-200">Salvar</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Protocol Success Modal (New Premium Design) */}
+      {showProtocolSuccess && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 font-sans antialiased text-slate-900">
+          {!isProtocolClosing && (
+            <div className="fixed inset-0 bg-slate-900/20 backdrop-blur-[8px] animate-in fade-in duration-700" onClick={handleCloseProtocol} />
+          )}
+          
+          <div
+            className={`relative w-full max-w-[440px] bg-white rounded-[3.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden border border-white transform transition-all duration-700 ${
+              isProtocolClosing
+                ? 'translate-y-12 opacity-0 scale-95'
+                : 'translate-y-0 opacity-100 scale-100 animate-in zoom-in-95 slide-in-from-bottom-10'
+            }`}
+          >
+            {/* Minimalist Close Button */}
+            <button 
+              onClick={handleCloseProtocol}
+              className="absolute top-8 right-8 p-2.5 bg-slate-50 rounded-full text-slate-300 hover:text-blue-600 hover:bg-blue-50 transition-all z-20"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Vibrant Status Bar */}
+            <div className="h-2 w-full bg-blue-600" />
+
+            <div className="p-10 flex flex-col items-center">
+              
+              {/* Success Icon with Aura */}
+              <div className="mb-10 mt-4 relative">
+                <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-2xl animate-pulse" />
+                <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center shadow-[0_15px_40px_-10px_rgba(37,99,235,0.4)] relative z-10">
+                  <CheckCircle2 size={40} className="text-white" strokeWidth={3} />
+                </div>
+              </div>
+
+              {/* Title */}
+              <div className="text-center mb-10">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <ShieldCheck size={16} className="text-blue-600" />
+                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em]">Sistema Verificado</span>
+                </div>
+                <h1 className="text-4xl font-black text-slate-900 tracking-tight leading-none mb-3">
+                  Protocolado
+                </h1>
+                <p className="text-slate-400 font-medium text-sm">
+                  Seu registro foi autenticado com sucesso.
+                </p>
+              </div>
+
+              {/* Client Box */}
+              <div className="w-full bg-slate-50 border border-slate-100 rounded-[2.5rem] p-8 mb-10 flex flex-col items-center gap-4 group hover:bg-white hover:border-blue-100 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center text-blue-600">
+                  <User size={24} />
+                </div>
+                <div className="text-center">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] block mb-2">Titular do Registro</span>
+                  <p className="text-xl font-black text-slate-800 tracking-tight uppercase">
+                    {client.name}
+                  </p>
+                </div>
+              </div>
+
+              {/* Detail Data */}
+              <div className="w-full grid grid-cols-2 gap-8 mb-16 px-2">
+                <div className="text-center space-y-2">
+                  <div className="flex items-center justify-center gap-1.5 text-slate-400">
+                    <Calendar size={12} />
+                    <span className="text-[9px] font-black uppercase tracking-widest">Data de Emissão</span>
+                  </div>
+                  <p className="text-[13px] font-bold text-slate-700">{protocolInfo.date}</p>
+                </div>
+                <div className="text-center space-y-2">
+                  <div className="flex items-center justify-center gap-1.5 text-slate-400">
+                    <Fingerprint size={12} />
+                    <span className="text-[9px] font-black uppercase tracking-widest">Identificação</span>
+                  </div>
+                  <p className="text-[13px] font-bold text-slate-700">{client.document}</p>
+                </div>
+              </div>
+
+              {/* Ticket ID Box (Integrated from old design but styled like new) */}
+              <div className="w-full mb-10 relative">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block text-center">
+                  Identificador Único (Ticket)
+                </span>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(protocolInfo.id);
+                    alert('ID copiado!');
+                  }}
+                  className="w-full bg-slate-900 group/ticket relative flex items-center justify-center py-5 rounded-[1.5rem] transition-all duration-300 hover:bg-blue-600 active:scale-[0.98] shadow-lg shadow-slate-200"
+                >
+                  <span className="text-white font-mono text-2xl font-black tracking-widest">#{protocolInfo.id}</span>
+                  <div className="absolute right-4 p-2 bg-white/10 rounded-xl opacity-0 group-hover/ticket:opacity-100 transition-opacity">
+                    <Copy className="w-5 h-5 text-white/50" />
+                  </div>
+                </button>
+              </div>
+
+              {/* Exit Button */}
+              <button 
+                onClick={handleCloseProtocol}
+                className="w-full py-5 bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 rounded-3xl font-black text-[11px] uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 group"
+              >
+                Sair do Comprovante
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* Digital Signature */}
+            <div className="mb-8 text-center flex flex-col items-center gap-2 opacity-30">
+              <div className="h-px w-12 bg-slate-400 mb-2" />
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-[0.4em]">Autenticação Digital Ativa</p>
+            </div>
           </div>
         </div>
       )}

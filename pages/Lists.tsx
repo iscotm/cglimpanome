@@ -19,7 +19,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Lists = () => {
-  const { lists, contracts, clients, createList, updateList, deleteList, addContractToList, removeContractFromList, completeList, getContractBalance } = useApp();
+  const { lists, contracts, clients, events, createList, updateList, deleteList, addContractToList, removeContractFromList, completeList, getContractBalance } = useApp();
   const [activeListId, setActiveListId] = useState<string | null>(null);
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -31,8 +31,10 @@ const Lists = () => {
   const activeList = lists.find(l => l.id === activeListId);
   const contractsInList = activeListId ? contracts.filter(c => c.listId === activeListId) : [];
 
-  // Contracts eligible to be added
+  // Contracts eligible to be added (eligible + returned)
   const eligibleContracts = contracts.filter(c => c.status === 'eligible');
+  const returnedContracts = contracts.filter(c => c.status === 'returned');
+  const availableContracts = [...eligibleContracts, ...returnedContracts];
 
   const handleCreateList = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +85,7 @@ const Lists = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-8rem)] flex flex-col md:flex-row gap-8 font-sans text-slate-700 relative">
+    <div className="h-[calc(100vh-8rem)] flex flex-col md:flex-row gap-8 font-sans text-slate-700 relative max-w-[1400px] mx-auto">
 
       {/* Left Column: All Lists */}
       <section className={`w-full md:w-80 flex flex-col bg-white rounded-[2.5rem] shadow-sm border border-slate-200 overflow-hidden shrink-0 transition-all duration-300 absolute md:relative inset-0 z-10 ${activeListId ? '-translate-x-full md:translate-x-0 opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto' : 'translate-x-0 opacity-100'}`}>
@@ -162,13 +164,41 @@ const Lists = () => {
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <button
                   onClick={() => {
-                    const lines = [`( ${activeList.name.toUpperCase()} )`, ''];
+                    const now = new Date();
+                    const dd = String(now.getDate()).padStart(2, '0');
+                    const mm = String(now.getMonth() + 1).padStart(2, '0');
+                    const yy = String(now.getFullYear()).slice(-2);
+                    const dateHeader = `( ${dd}-${mm}-${yy} )`;
+
+                    const normalContracts: string[] = [];
+                    const reprotocolarContracts: string[] = [];
+
                     contractsInList.forEach(c => {
                       const client = clients.find(cl => cl.id === c.clientId);
-                      lines.push('-------------------');
-                      lines.push(`NOME: ${client?.name || 'N/A'}`);
-                      lines.push(`CPF: ${client?.document || 'N/A'}`);
+                      // Check if this contract was returned before being added to this list
+                      const wasReturned = events.some(
+                        ev => ev.contractId === c.id && ev.type === 'returned'
+                      );
+
+                      if (wasReturned) {
+                        reprotocolarContracts.push('-------------------');
+                        reprotocolarContracts.push(`NOME: ${client?.name || 'N/A'}`);
+                        reprotocolarContracts.push(`CPF: ${client?.document || 'N/A'}`);
+                      } else {
+                        normalContracts.push('-------------------');
+                        normalContracts.push(`NOME: ${client?.name || 'N/A'}`);
+                        normalContracts.push(`CPF: ${client?.document || 'N/A'}`);
+                      }
                     });
+
+                    const lines = [dateHeader, `( ${activeList.name.toUpperCase()} )`, ''];
+                    if (normalContracts.length > 0) {
+                      lines.push(...normalContracts);
+                    }
+                    if (reprotocolarContracts.length > 0) {
+                      lines.push('', 'REPROTOCOLAR:');
+                      lines.push(...reprotocolarContracts);
+                    }
 
                     const text = lines.join('\n');
                     navigator.clipboard.writeText(text);
@@ -241,13 +271,26 @@ const Lists = () => {
                       const client = clients.find(cl => cl.id === c.clientId);
                       const balance = getContractBalance(c.id);
                       return (
-                        <div key={c.id} className="bg-white border border-slate-100 rounded-[2rem] p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md hover:border-navy-100 transition-all gap-4">
+                        <div key={c.id} className={`border rounded-[2rem] p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md transition-all gap-4 ${
+                          events.some(ev => ev.contractId === c.id && ev.type === 'returned')
+                            ? 'bg-red-50/60 border-red-200 hover:border-red-300'
+                            : 'bg-white border-slate-100 hover:border-navy-100'
+                        }`}>
                           <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 text-navy-700 font-bold text-lg shrink-0">
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border font-bold text-lg shrink-0 ${
+                              events.some(ev => ev.contractId === c.id && ev.type === 'returned')
+                                ? 'bg-red-50 border-red-200 text-red-600'
+                                : 'bg-slate-50 border-slate-100 text-navy-700'
+                            }`}>
                               {client?.name.charAt(0)}
                             </div>
                             <div className="min-w-0">
-                              <h4 className={`font-bold leading-tight truncate ${balance.percentage < 50 ? 'text-orange-500' : 'text-slate-800'}`}>{client?.name}</h4>
+                              <div className="flex items-center gap-2">
+                                <h4 className={`font-bold leading-tight truncate ${balance.percentage < 50 ? 'text-orange-500' : 'text-slate-800'}`}>{client?.name}</h4>
+                                {events.some(ev => ev.contractId === c.id && ev.type === 'returned') && (
+                                  <span className="px-2 py-0.5 rounded-lg text-[9px] font-bold uppercase tracking-tight bg-red-100 text-red-700 border border-red-200 shrink-0">Reprotocolar</span>
+                                )}
+                              </div>
                               <p className="text-xs font-mono text-slate-500 mt-0.5">{client?.document}</p>
                             </div>
                           </div>
@@ -285,12 +328,12 @@ const Lists = () => {
                       Disponíveis para Adicionar
                     </div>
                     <span className="bg-slate-100 text-slate-600 text-[11px] font-bold px-2 py-0.5 rounded-full border border-slate-200">
-                      {eligibleContracts.length}
+                      {availableContracts.length}
                     </span>
                   </div>
 
                   <div className="space-y-3">
-                    {eligibleContracts.length === 0 ? (
+                    {availableContracts.length === 0 ? (
                       <div className="border-2 border-dashed border-slate-100 rounded-[2rem] py-16 flex flex-col items-center justify-center bg-slate-50/50">
                         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-slate-200 shadow-sm mb-4 border border-slate-100">
                           <ListTodo size={32} />
@@ -301,17 +344,31 @@ const Lists = () => {
                         </Link>
                       </div>
                     ) : (
-                      eligibleContracts.map(c => {
+                      availableContracts.map(c => {
                         const client = clients.find(cl => cl.id === c.clientId);
+                        const isReturned = c.status === 'returned';
                         return (
-                          <div key={c.id} className="bg-white border border-slate-100 rounded-[2rem] p-4 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md hover:border-emerald-200 transition-all gap-4">
+                          <div key={c.id} className={`border rounded-[2rem] p-4 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm hover:shadow-md transition-all gap-4 ${
+                            isReturned
+                              ? 'bg-red-50/60 border-red-200 hover:border-red-300'
+                              : 'bg-white border-slate-100 hover:border-emerald-200'
+                          }`}>
                             <div className="flex-1">
-                              <p className="font-bold text-slate-800 text-sm">{client?.name}</p>
+                              <div className="flex items-center gap-2">
+                                <p className={`font-bold text-sm ${isReturned ? 'text-red-700' : 'text-slate-800'}`}>{client?.name}</p>
+                                {isReturned && (
+                                  <span className="px-2 py-0.5 rounded-lg text-[9px] font-bold uppercase tracking-tight bg-red-100 text-red-700 border border-red-200 shrink-0">Reprotocolar</span>
+                                )}
+                              </div>
                               <p className="text-xs text-slate-500">CPF: {client?.document}</p>
                             </div>
                             <button
                               onClick={() => handleAddToList(c.id)}
-                              className="w-full sm:w-auto ml-0 sm:ml-4 p-2 bg-navy-50 text-navy-700 rounded-xl hover:bg-navy-700 hover:text-white transition-colors flex items-center justify-center shadow-sm"
+                              className={`w-full sm:w-auto ml-0 sm:ml-4 p-2 rounded-xl transition-colors flex items-center justify-center shadow-sm ${
+                                isReturned
+                                  ? 'bg-red-50 text-red-600 hover:bg-red-600 hover:text-white'
+                                  : 'bg-navy-50 text-navy-700 hover:bg-navy-700 hover:text-white'
+                              }`}
                             >
                               <Plus size={20} />
                             </button>

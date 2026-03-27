@@ -22,22 +22,22 @@ import { Link } from 'react-router-dom';
 const KPICard = ({ title, value, subtext, icon: Icon, colorClass, trend, onClick }: any) => (
   <div
     onClick={onClick}
-    className={`bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 transition-all duration-300 ${onClick ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 hover:border-navy-100' : ''}`}
+    className={`kpi-card bg-white dark:bg-slate-800 p-6 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 transition-all duration-300 ${onClick ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 hover:border-navy-100 dark:hover:border-navy-700' : ''}`}
   >
     <div className="flex justify-between items-start mb-4">
       <div className={`p-3 rounded-2xl ${colorClass} bg-opacity-10`}>
         <Icon size={24} className={colorClass.replace('bg-', 'text-')} />
       </div>
       {trend && (
-        <span className="flex items-center gap-1 text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+        <span className="flex items-center gap-1 text-xs font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 rounded-full">
           +12% <TrendingUp size={12} />
         </span>
       )}
     </div>
     <div>
-      <h3 className="text-slate-500 text-sm font-medium mb-1">{title}</h3>
-      <div className="text-2xl font-bold text-slate-800 mb-1">{value}</div>
-      {subtext && <p className="text-xs text-slate-400">{subtext}</p>}
+      <h3 className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">{title}</h3>
+      <div className="text-2xl font-bold text-slate-800 dark:text-white mb-1">{value}</div>
+      {subtext && <p className="text-xs text-slate-400 dark:text-slate-500">{subtext}</p>}
     </div>
   </div>
 );
@@ -316,29 +316,33 @@ const Dashboard = () => {
   const [isOutstandingModalOpen, setIsOutstandingModalOpen] = useState(false);
 
   return (
-    <div className="w-full">
-      {/* Header da Página */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800">Visão Geral</h2>
-          <p className="text-slate-500 mt-1">Acompanhe o desempenho e métricas em tempo real.</p>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-medium text-navy-700 bg-navy-50 px-3 py-1.5 rounded-full border border-navy-100">
-            Atualizado hoje
-          </span>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 bg-navy-700 hover:bg-navy-800 text-white px-5 py-2.5 rounded-2xl font-medium shadow-lg shadow-navy-700/30 transition-all hover:scale-105 active:scale-95"
-          >
-            <Plus size={18} />
-            Adicionar Cliente
-          </button>
+    <div className="w-full max-w-[1400px] mx-auto">
+      {/* Hero Header */}
+      <div className="relative mb-8 p-8 rounded-[2.5rem] bg-gradient-to-br from-navy-700 via-navy-600 to-navy-500 overflow-hidden animate-fade-up">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4 blur-2xl"></div>
+        <div className="absolute bottom-0 left-0 w-60 h-60 bg-navy-800/30 rounded-full translate-y-1/2 -translate-x-1/4 blur-2xl"></div>
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Visão Geral</h2>
+            <p className="text-navy-200 mt-1 text-sm">Acompanhe o desempenho e métricas em tempo real.</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-medium text-white/70 bg-white/10 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
+              Atualizado hoje
+            </span>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white px-5 py-2.5 rounded-2xl font-medium backdrop-blur-sm transition-all hover:scale-105 active:scale-95 border border-white/10"
+            >
+              <Plus size={18} />
+              Adicionar Cliente
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Grid de KPIs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-fade-up-delay-1">
         <KPICard
           title="Receita Total"
           value={formatCurrency(stats.totalRevenue)}
@@ -371,7 +375,7 @@ const Dashboard = () => {
       </div>
 
       {/* Grid de Gráficos e Listas */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-up-delay-2">
 
         {/* Gráfico de Barras */}
         <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
